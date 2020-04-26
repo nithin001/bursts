@@ -1,4 +1,4 @@
-<div className="mt-5">
+<div class="mt-5">
     <h1>You completed this burst on <%=@burst.completed_at.strftime("%Y-%m-%d %I:%M%p")%></h1>
     <h2>Tasks completed</h2>
     <%@burst.bursts_tasks.where(completed:true).each do |burst_task|%>

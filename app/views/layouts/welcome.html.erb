@@ -12,14 +12,8 @@
     <%= stylesheet_link_tag 'welcome', media: 'all' %>
   </head>
   <body id="bootstrap-root">
-    <% if user_signed_in? %>
-      <%= render 'logged_in_menu' %>
-    <% else %>
-      <%= render 'logged_out_menu' %>
-    <% end %>
-    <div class="container mt-8">
-      <%= yield %>
-    </div>
+    <%= render 'logged_out_menu' %>
+    <%= yield %>
   </body>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
