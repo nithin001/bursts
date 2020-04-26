@@ -1,0 +1,26 @@
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+  <div class="bg-white rounded shadow-7 mw-100 p-6 d-flex justify-content-center">
+    <div class="w-400">
+      <h5 class="mb-6">Recover your password</h5>
+      <% if resource.errors.any? %>
+        <div id="error_explanation">
+          <h2>
+            <%= I18n.t("errors.messages.count_not_reset_password") %>
+          </h2>
+          <ul>
+            <% resource.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    
+      <div class="form-group">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Email Address" %>
+      </div>
+      <div class="form-group">
+        <%= f.submit "Send reset instructions", class: 'btn btn-lg btn-block btn-primary' %>
+      </div>
+    </div>
+  </div>
+<% end %>

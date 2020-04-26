@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @burst.status %>
+</p>
+
+<p>
+  <strong>Started at:</strong>
+  <%= @burst.started_at %>
+</p>
+
+<p>
+  <strong>Completed at:</strong>
+  <%= @burst.completed_at %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @burst.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_burst_path(@burst) %> |
+<%= link_to 'Back', bursts_path %>

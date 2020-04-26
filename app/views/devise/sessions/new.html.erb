@@ -1,0 +1,32 @@
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="bg-white rounded shadow-7 mw-100 p-6 d-flex justify-content-center">
+    <div class="w-400">
+      <h5 class="mb-5">Sign into your account</h5>
+      <div class="form-group">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', placeholder: 'Email' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.password_field :password, autocomplete: "current-password", class: 'form-control', placeholder: 'Password' %>
+      </div>
+      
+
+      <div class="form-group flexbox py-3">
+        <% if devise_mapping.rememberable? %>
+          <div class="custom-control custom-checkbox">
+            <%= f.check_box :remember_me, class: 'custom-control-input' %>
+            <label class="custom-control-label">Remember me</label>
+          </div>
+        <% end %>
+        <%= link_to "Forgot password?", new_password_path(resource_name), class: 'text-muted small-2' %>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-block btn-primary" type="submit">Login</button>
+      </div>
+      <hr class="w-30">
+
+      <p class="text-center text-muted small-2">Don't have an account? <%= link_to "Register here", new_user_registration_path %></p>
+    </div>
+  </div>  
+<% end %>

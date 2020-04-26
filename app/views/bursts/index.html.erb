@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Started At</th>
+      <th scope="col">Completed At</th>
+      <th scope="col">Time taken</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @bursts.each do |burst| %>
+      <tr>
+        <th scope="row">1</th>
+        <td>10 am</td>
+        <td>11 am</td>
+        <td>2 hrs</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

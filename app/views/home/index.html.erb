@@ -1,0 +1,41 @@
+<%if @burst.draft?%>
+<div class="mt-5">
+    <h1>Prepare for your burst</h1>
+    <h2>Add tasks you want to complete in this burst</h2>
+    <form>
+        <div class="form-group">
+            <input type="text" class="form-control"></textarea>
+            <small id="emailHelp" class="form-text text-muted">Press &#8629; to add a task</small>
+        </div>
+    </form>
+    <h3>Task pool</h3>
+    <ul class="list-group mt-2">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Raise PR
+            <div>
+                <button class="btn btn-outline-primary btn-sm">Add to burst</button>
+                <button type="button" class="btn btn-sm btn-outline-danger ml-1" aria-label="Left Align">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+            </div>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Move zinc ed to production
+            <div>
+                <button class="btn btn-outline-primary btn-sm">Add to burst</button>
+                <button type="button" class="btn btn-sm btn-outline-danger ml-1" aria-label="Left Align">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+            </div>
+        </li>
+    </ul>
+    <h3 class="mt-2">Tasks for this burst</h3>
+    <ul class="list-group mt-2">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Complete styling for reports dashboard
+            <button class="btn btn-outline-primary btn-sm">Remove from burst</button>
+        </li>
+    </ul>
+    <a href="#" class="btn btn-outline-primary btn-lg mt-2" role="button" aria-pressed="true">Start Burst</a>
+</div>
+<%end%>
