@@ -9,7 +9,7 @@ class TasksForThisBurst extends React.Component {
 
   completeTask = (id) => {
     AxiosInstance()
-      .post("/complete.json", {
+      .post("/complete_task.json", {
         id,
       })
       .then(() => {
