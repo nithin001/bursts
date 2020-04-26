@@ -1,20 +1,21 @@
-<p id="notice"><%= notice %></p>
+<div className="mt-5">
+  <h1>Completed Bursts</h1>
+</div>
+
 <table class="table table-bordered">
   <thead>
     <tr>
-      <th scope="col">#</th>
       <th scope="col">Started At</th>
       <th scope="col">Completed At</th>
-      <th scope="col">Time taken</th>
+      <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody>
-    <% @bursts.each do |burst| %>
+    <% @bursts.completed.each do |burst| %>
       <tr>
-        <th scope="row">1</th>
-        <td>10 am</td>
-        <td>11 am</td>
-        <td>2 hrs</td>
+        <td><%=burst.started_at.strftime("%Y-%m-%d %I:%M%p")%></td>
+        <td><%=burst.completed_at.strftime("%Y-%m-%d %I:%M%p")%></td>
+        <td><%= link_to "View", burst %></td>
       </tr>
     <% end %>
   </tbody>

@@ -11,10 +11,6 @@ class BurstsController < ApplicationController
   # GET /bursts/1.json
   def show; end
 
-  # GET /bursts/new
-  def new
-    @burst = Burst.draft.where(user: current_user).first_or_create
-  end
 
   # GET /bursts/1/edit
   def edit; end

@@ -1,24 +1,12 @@
-<p id="notice"><%= notice %></p>
+<div className="mt-5">
+    <h1>You completed this burst on <%=@burst.completed_at.strftime("%Y-%m-%d %I:%M%p")%></h1>
+    <h2>Tasks completed</h2>
+    <%@burst.bursts_tasks.where(completed:true).each do |burst_task|%>
+      <p><%=burst_task.task.description%></p>
+    <%end%>
 
-<p>
-  <strong>Status:</strong>
-  <%= @burst.status %>
-</p>
-
-<p>
-  <strong>Started at:</strong>
-  <%= @burst.started_at %>
-</p>
-
-<p>
-  <strong>Completed at:</strong>
-  <%= @burst.completed_at %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @burst.user_id %>
-</p>
-
-<%= link_to 'Edit', edit_burst_path(@burst) %> |
-<%= link_to 'Back', bursts_path %>
+    <h2>Tasks carried over</h2>
+    <%@burst.bursts_tasks.where(completed:false).each do |burst_task|%>
+      <p><%=burst_task.task.description%></p>
+    <%end%>
+</div>
