@@ -4,14 +4,13 @@ class Burst < ApplicationRecord
   enum status: %i[draft active completed]
 
   belongs_to :user
-  has_many :bursts_tasks
-  has_and_belongs_to_many :tasks
+  has_many :tasks
 
   def self.current_burst(current_user)
     active_burst = active.where(user: current_user).first
     return active_burst if active_burst.present?
 
-    draft.where(user: current_user).first_or_create
+    # draft.where(user: current_user).first_or_create
   end
 
   def self.start_current_burst(current_user)

@@ -11,21 +11,16 @@ class BurstsController < ApplicationController
   # GET /bursts/1.json
   def show; end
 
-
-  # GET /bursts/1/edit
-  def edit; end
-
   # POST /bursts
   # POST /bursts.json
   def create
-    @burst = Burst.new(burst_params)
-
+    @burst = Burst.new(user: current_user)
+    @burst.started_at = Time.now
+    @burst.status = 'draft'
     respond_to do |format|
       if @burst.save
-        format.html { redirect_to @burst, notice: 'Burst was successfully created.' }
         format.json { render :show, status: :created, location: @burst }
       else
-        format.html { render :new }
         format.json { render json: @burst.errors, status: :unprocessable_entity }
       end
     end
@@ -33,32 +28,25 @@ class BurstsController < ApplicationController
 
   # PATCH/PUT /bursts/1
   # PATCH/PUT /bursts/1.json
-  def update
+  def start
     respond_to do |format|
-      if @burst.update(burst_params)
-        format.html { redirect_to @burst, notice: 'Burst was successfully updated.' }
+      if @burst.active!
         format.json { render :show, status: :ok, location: @burst }
       else
-        format.html { render :edit }
         format.json { render json: @burst.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /bursts/1
-  # DELETE /bursts/1.json
-  def destroy
-    @burst.destroy
+  # PATCH/PUT /bursts/1
+  # PATCH/PUT /bursts/1.json
+  def complete
     respond_to do |format|
-      format.html { redirect_to bursts_url, notice: 'Burst was successfully destroyed.' }
-      format.json { head :no_content }
+      if @burst.completed!
+        format.json { render :show, status: :ok, location: @burst }
+      else
+        format.json { render json: @burst.errors, status: :unprocessable_entity }
+      end
     end
-  end
-
-  private
-
-  # Only allow a list of trusted parameters through.
-  def burst_params
-    params.fetch(:burst).permit(:name).merge(user: current_user)
   end
 end

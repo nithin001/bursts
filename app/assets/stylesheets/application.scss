@@ -22,3 +22,16 @@
  */
 
  @import "./bursts.scss";
+
+ body {
+    font-family: 'Muli', sans-serif;
+ }
+ 
+ .mt-micro {
+    margin-top: .1rem !important;
+ }
+
+ .rbt-input-hint {
+   margin-top: -2px;
+   margin-left: 2px;
+ }
