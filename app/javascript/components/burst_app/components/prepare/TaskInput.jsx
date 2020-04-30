@@ -1,6 +1,9 @@
 import React, { useState, useCallback, useRef } from "react";
 import { AsyncTypeahead, hintContainer } from "react-bootstrap-typeahead";
-import { AxiosInstance } from '../../util/api';
+import { AxiosInstance } from "../../util/api";
+
+import AcceptIcon from "./AcceptIcon";
+import CancelIcon from "./CancelIcon";
 
 export default function TaskInput(props) {
   const [isLoading, setIsLoading] = useState(false);
@@ -34,7 +37,7 @@ export default function TaskInput(props) {
         <input
           type="text"
           {...inputProps}
-          className="d-inline border-0 ml-1 w-100"
+          className="d-inline border-0 ml-1 w-100 bg-transparent text-white white-placeholder"
           autoFocus
           placeholder="Describe a tiny and accountable task"
         />
@@ -48,11 +51,11 @@ export default function TaskInput(props) {
 
   return (
     <div className="p-3 d-flex flex-column">
-      <div className="d-flex align-items-center">
-        <i
+      <div className="d-flex align-items-center justify-content-between">
+        {/* <i
           className="fa fa-square-o fa-lg mt-micro text-muted"
           aria-hidden="true"
-        ></i>
+        ></i> */}
         <AsyncTypeahead
           id="async-example"
           isLoading={isLoading}
@@ -60,10 +63,12 @@ export default function TaskInput(props) {
           minLength={3}
           onSearch={handleSearch}
           options={options}
-          className="w-100"
+          className="w-75"
           selectHintOnEnter
           onChange={(value) => {
-            props.onChange(value[0]);
+            if (value[0]) {
+              props.onChange(value[0]);
+            }
           }}
           onInputChange={props.onChange}
           onKeyDown={handleKeyDown}
@@ -71,11 +76,28 @@ export default function TaskInput(props) {
           renderInput={_renderInput}
           defaultSelected={props.editMode ? [props.defaultValue] : []}
         />
+        {!props.editMode && (
+          <AcceptIcon
+            onCommit={props.onCommit}
+            ref={ref}
+            description={props.description}
+          />
+        )}
+        {props.editMode && (
+          <div>
+            <AcceptIcon
+              onCommit={props.onCommit}
+              ref={ref}
+              description={props.description}
+            />
+            <CancelIcon onCancel={props.onCancel} ref={ref} />
+          </div>
+        )}
       </div>
-      <div className="d-flex align-items-center mt-3">
+      {/* <div className="d-flex align-items-center mt-3">
         {!props.editMode && (
           <button
-            className="btn btn-sm btn-outline-primary"
+            className="btn btn-sm rounded-pill btn-light"
             onClick={() => {
               ref.current.clear();
               props.onCommit();
@@ -87,7 +109,7 @@ export default function TaskInput(props) {
         {props.editMode && (
           <React.Fragment>
             <button
-              className="btn btn-sm btn-outline-primary"
+              className="btn btn-sm rounded-pill btn-light"
               onClick={() => {
                 ref.current.clear();
                 props.onCommit();
@@ -96,7 +118,7 @@ export default function TaskInput(props) {
               Save
             </button>
             <button
-              className="btn btn-sm btn-outline-secondary ml-2"
+              className="btn btn-sm rounded-pill btn-outline-secondary ml-2"
               onClick={() => {
                 ref.current.clear();
                 props.onCancel();
@@ -106,7 +128,7 @@ export default function TaskInput(props) {
             </button>
           </React.Fragment>
         )}
-      </div>
+      </div> */}
     </div>
   );
 }

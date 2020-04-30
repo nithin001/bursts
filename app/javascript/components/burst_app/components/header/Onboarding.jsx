@@ -24,7 +24,7 @@ function Onboarding() {
             onClick={() => {
               dispatch(createBurst());
             }}
-            className="btn btn-outline-primary btn-sm"
+            className="btn btn-outline-primary btn-sm rounded-pill"
           >
             Get started
           </button>

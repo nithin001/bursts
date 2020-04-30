@@ -13,11 +13,16 @@ function Task({ task }) {
     }
   };
 
-  const iconClassName = task.status == "complete" ? "fa-check-square text-success" : "fa-square-o text-muted";
+  const iconClassName = task.status == "complete" ? "fa-check-square" : "fa-square";
+  const bgClass = task.status == "complete" ? "bg-task" : "bg-task bg-task--editing";
   return (
-    <div className="d-flex align-items-center pl-3 pr-3 mt-3 mb-2">
+    <div className={`d-flex align-items-center justify-content-between p-3 mt-3 mb-2 ${bgClass} text-white rounded`}>
+      <span className={"ml-2"}>
+        {task.status == "complete" && <del>{task.description}</del>}
+        {task.status == "incomplete" && <span>{task.description}</span>}
+      </span>
       <i
-        className={`fa ${iconClassName} fa-lg mt-micro`}
+        className={`fa ${iconClassName} fa-lg text-white`}
         aria-hidden="true"
         tabIndex="0"
         role="button"
@@ -30,10 +35,7 @@ function Task({ task }) {
           }
         }}
       ></i>
-      <span className={"ml-2"}>
-        {task.status == "complete" && <del>{task.description}</del>}
-        {task.status == "incomplete" && <span>{task.description}</span>}
-      </span>
+      
     </div>
   );
 }

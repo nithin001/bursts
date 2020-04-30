@@ -12,16 +12,17 @@ function AddTask() {
   
   const addTask = () => {
     dispatch(createTask(application.currentBurstId, description));
+    setDescription("");
   };
 
   return (
     <React.Fragment>
-      <div className="card mt-3">
-        <TaskInput onCommit={addTask} onChange={setDescription} />
+      <div className="card mt-3 bg-task bg-task--editing">
+        <TaskInput onCommit={addTask} onChange={setDescription} description={description}/>
       </div>
-      <small className="form-text text-muted mt-3">
+      {/* <small className="form-text text-muted mt-3">
         Pro tip: Press &#8629; to save changes
-      </small>
+      </small> */}
     </React.Fragment>
   );
 }

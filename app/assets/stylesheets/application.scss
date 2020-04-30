@@ -24,7 +24,7 @@
  @import "./bursts.scss";
 
  body {
-    font-family: 'Muli', sans-serif;
+    font-family: 'Lato', sans-serif;
  }
  
  .mt-micro {
@@ -34,4 +34,36 @@
  .rbt-input-hint {
    margin-top: -2px;
    margin-left: 2px;
+   color: rgba(255, 255, 255, 0.5) !important
+ }
+
+ .bg-task {
+   background-color: #50556C;
+
+   &--editing {
+      background-color: #808493;
+   }
+}
+
+.text-task {
+   color: #50556C;
+}
+
+ .text-inactive {
+   color: #d3d3d3;
+ }
+
+ .white-placeholder {
+   &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: #d3d3d3;
+      opacity: 1; /* Firefox */
+    }
+    
+    &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+      color: #d3d3d3;
+    }
+    
+    &::-ms-input-placeholder { /* Microsoft Edge */
+      color: #d3d3d3;
+    }
  }

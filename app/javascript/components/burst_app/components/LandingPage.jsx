@@ -8,8 +8,8 @@ import Analyze from "./analyze/Analyze";
 function LandingPage() {
   return (
     <div className="container">
-      <div className="row">
-        <div className="col-sm-12">
+      <div className="row justify-content-center">
+        <div className="col-sm-8">
           <div className="shadow burst-container rounded bg-white mt-5">
             <Header />
             <Onboarding />

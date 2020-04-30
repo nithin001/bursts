@@ -14,10 +14,9 @@ function Task({task}) {
     dispatch(toggleEditMode(task.id));
   }
   return (
-    <div className="d-flex align-items-center pl-3 pr-3 mt-3 mb-2">
-      <RemoveIcon taskId={task.id} />
+    <div className="d-flex align-items-center justify-content-between p-3 mt-3 mb-2 bg-task text-white rounded">
       <span
-        className={"ml-2"}
+        className={"ml-2 w-75"}
         style={{ cursor: "pointer" }}
         tabIndex="0"
         role="button"
@@ -33,6 +32,7 @@ function Task({task}) {
       >
         {task.description}
       </span>
+      <RemoveIcon taskId={task.id} />
     </div>
   );
 }

@@ -14,7 +14,7 @@ function RemoveIcon({ taskId }) {
 
   return (
     <i
-      className="fa fa-minus-square fa-lg mt-micro"
+      className="fa fa-minus fa-lg"
       aria-hidden="true"
       tabIndex="0"
       role="button"

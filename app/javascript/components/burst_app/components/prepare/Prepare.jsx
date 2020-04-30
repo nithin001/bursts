@@ -15,8 +15,8 @@ function Prepare() {
 
   return (
     <div className="p-3">
-      <Tasks />
       <AddTask />
+      <Tasks />
     </div>
   );
 }
