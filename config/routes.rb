@@ -21,6 +21,8 @@ Rails.application.routes.draw do
     get 'burst', to: 'home#burst', defaults: { format: :json }
     get 'user', to: 'home#user', defaults: { format: :json }
     get 'tasks', to: 'home#tasks', defaults: { format: :json }
+    get 'stats', to: 'home#stats', defaults: { format: :json }
+    
     root to: 'home#index', as: :authenticated_root
   end
 

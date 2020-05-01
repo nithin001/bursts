@@ -15,7 +15,6 @@ class BurstsController < ApplicationController
   # POST /bursts.json
   def create
     @burst = Burst.new(user: current_user)
-    @burst.started_at = Time.now
     @burst.status = 'draft'
     respond_to do |format|
       if @burst.save
@@ -31,6 +30,8 @@ class BurstsController < ApplicationController
   def start
     respond_to do |format|
       if @burst.active!
+        @burst.started_at = Time.now
+        @burst.save!
         format.json { render :show, status: :ok, location: @burst }
       else
         format.json { render json: @burst.errors, status: :unprocessable_entity }
@@ -43,6 +44,8 @@ class BurstsController < ApplicationController
   def complete
     respond_to do |format|
       if @burst.completed!
+        @burst.completed_at = Time.now
+        @burst.save!
         format.json { render :show, status: :ok, location: @burst }
       else
         format.json { render json: @burst.errors, status: :unprocessable_entity }

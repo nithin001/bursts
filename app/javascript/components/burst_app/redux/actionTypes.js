@@ -10,7 +10,7 @@ export const ADD_TO_TASK = "ADD_TO_TASK";
 export const REMOVE_TASK = "REMOVE_TASK";
 export const TOGGLE_EDIT_MODE = "TOGGLE_EDIT_MODE";
 export const EDIT_TASK = "EDIT_TASK";
-
+export const LOAD_STATS = "LOAD_STATS";
 
 
 

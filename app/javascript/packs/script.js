@@ -1,3 +1,4 @@
-'use strict';
-$(document).on('turbolinks:load', function() {
+"use strict";
+$(document).on("turbolinks:load", function () {
+  
 });

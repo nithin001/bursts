@@ -7,6 +7,7 @@ import {
   REMOVE_TASK,
   TOGGLE_EDIT_MODE,
   EDIT_TASK,
+  LOAD_STATS
 } from "./actionTypes";
 
 import { AxiosInstance } from "../util/api";
@@ -35,6 +36,17 @@ export const loadCurrentUser = () => (dispatch) => {
     .then((response) => {
       dispatch({
         type: UPDATE_CURRENT_USER,
+        payload: response.data,
+      });
+    });
+};
+
+export const loadStats = () => (dispatch) => {
+  AxiosInstance()
+    .get("/stats.json")
+    .then((response) => {
+      dispatch({
+        type: LOAD_STATS,
         payload: response.data,
       });
     });
