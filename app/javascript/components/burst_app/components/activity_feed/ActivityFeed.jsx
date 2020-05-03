@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Bursts from "./Bursts";
+import Bursts from "./bursts";
 
 import { useDispatch, useSelector } from "react-redux";
 import { loadActivityFeed } from "../../redux/actions";
