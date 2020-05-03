@@ -3,10 +3,10 @@ import Onboarding from "./onboarding/onboarding";
 import Header from "./header/Header";
 import Prepare from "./prepare/Prepare";
 import Do from "./do/Do";
-import Analyze from "./analyze/analyze";
+import Analyze from "./analyze";
 import ActivityFeed from "./activity_feed/ActivityFeed";
 import BurstNotification from "./notification/BurstNotification";
-import Welcome from "./welcome/welcome";
+import Welcome from "./welcome";
 
 function LandingPage() {
   return (
