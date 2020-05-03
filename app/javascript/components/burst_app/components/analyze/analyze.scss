@@ -1,0 +1,40 @@
+.analyze {
+  .statistic {
+    text-align: center;
+    border: 1px solid #d3d3d3;
+    padding: 20px;
+    background-color: #ff726b;
+    color: white;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    .stats-small {
+        position: absolute;
+        bottom:0;
+        left:0;
+    }
+    .value {
+      font-size: 40px;
+      font-weight: 200;
+      display: block;
+    }
+    .label {
+      margin-top: 10px;
+      font-size: 10px;
+    line-height: 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    }
+
+    .flipper {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        cursor: pointer;
+    }
+  }
+}

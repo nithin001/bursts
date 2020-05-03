@@ -9,7 +9,9 @@ class BurstsController < ApplicationController
 
   # GET /bursts/1
   # GET /bursts/1.json
-  def show; end
+  def show
+    render json: @burst.to_json({ methods: :humanized_time_taken })
+  end
 
   # POST /bursts
   # POST /bursts.json
@@ -45,6 +47,19 @@ class BurstsController < ApplicationController
     respond_to do |format|
       if @burst.completed!
         @burst.completed_at = Time.now
+        @burst.save!
+        format.json { render :show, status: :ok, location: @burst }
+      else
+        format.json { render json: @burst.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH/PUT /bursts/1
+  # PATCH/PUT /bursts/1.json
+  def notified
+    respond_to do |format|
+      if @burst.notified!
         @burst.save!
         format.json { render :show, status: :ok, location: @burst }
       else

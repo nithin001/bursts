@@ -30,6 +30,10 @@ class HomeController < ApplicationController
     render json: Stats.new(current_user).as_json
   end
 
+  def feed
+    render json: Feed.new(current_user).as_json
+  end
+
   # def start
   #   Burst.start_current_burst(current_user)
 

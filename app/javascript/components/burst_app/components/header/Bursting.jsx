@@ -19,6 +19,12 @@ function Bursting() {
     return <React.Fragment />;
   }
 
+  const burstMode = burst.status === "draft" || burst.status === "active";
+  
+  if (!burstMode) {
+    return <React.Fragment />;
+  }
+
   const actionButtonMap = {
     draft: (
       <i

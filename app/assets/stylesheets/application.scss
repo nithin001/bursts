@@ -68,10 +68,10 @@
     }
  }
 
- .day {
-  fill: #eee;
+.day {
+  fill: #ff726b;
   stroke: #fff;
-  stroke-width: 3px;
+  stroke-width: 1px;
 }
 
 .color0 { fill: #d6e685 }
@@ -80,7 +80,30 @@
 .color3 { fill: #1e6823 }
 .color4 { fill: #365e2f }
 .color5 { fill: #144e12 }
+
 svg > g > text {
   font-size: 10px;
   fill: #767676;
+}
+
+.Minigraph {
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  width: 30rem;
+
+  .svg-parent {
+    background: transparent !important;
+    width: calc(25%);
+  }
+
+  .tooltip {
+    position: fixed;
+    right: 0;
+    top: 0;
+  }
 }

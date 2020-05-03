@@ -7,7 +7,8 @@ import {
   REMOVE_TASK,
   TOGGLE_EDIT_MODE,
   EDIT_TASK,
-  LOAD_STATS
+  LOAD_STATS,
+  LOAD_ACTIVITY_FEED,
 } from "./actionTypes";
 
 import { AxiosInstance } from "../util/api";
@@ -112,6 +113,11 @@ export const completeBurst = (id) => (dispatch) => {
       }
     });
 };
+export const updateBurstNotified = (id) => () => {
+  AxiosInstance().patch(`/bursts/${id}/notified.json`)
+};
+
+
 
 export const createTask = (burstId, taskDescription) => (dispatch) => {
   AxiosInstance()
@@ -140,7 +146,6 @@ export const deleteTask = (burstId, taskId) => (dispatch) => {
       }
     });
 };
-
 
 export const editTask = (burstId, taskId, taskDescription) => (dispatch) => {
   AxiosInstance()
@@ -180,5 +185,16 @@ export const undoCompleteTask = (burstId, taskId) => (dispatch) => {
           payload: response.data,
         });
       }
+    });
+};
+
+export const loadActivityFeed = () => (dispatch) => {
+  AxiosInstance()
+    .get(`/feed.json?type=latest&count=5`)
+    .then((response) => {
+      dispatch({
+        type: LOAD_ACTIVITY_FEED,
+        payload: response.data,
+      });
     });
 };

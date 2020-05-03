@@ -8,7 +8,7 @@ class HeatmapStats extends React.Component {
   componentDidMount() {
     const chart = this.props.connectFauxDOM("div", "chart");
     const months = this.props.connectFauxDOM("div", "months");
-    const startDate = moment().subtract(1, "years").startOf("week").toDate();
+    const startDate = moment().subtract(1.6, "years").startOf("week").toDate();
     const endDate = moment().toDate();
     const dates = this.props.graph.reduce((acc, stat) => {
       acc[stat.date] = {...stat};
@@ -32,9 +32,6 @@ class HeatmapStats extends React.Component {
       <div className="container">
         <div className="row">
           <div className="col-12 justify-content-end align-items-end">
-            <div className="d-flex flex-row-reverse" style={{ overflow: "hidden" }}>
-              <div className="legend">{this.props.months}</div>
-            </div>
             <div className="d-flex flex-row-reverse" style={{ overflow: "hidden" }}>
               <div className="chart">{this.props.chart}</div>
             </div>

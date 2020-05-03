@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     member do
       patch :start
       patch :complete
+      patch :notified
     end
     resources :tasks do
       member do
@@ -22,6 +23,7 @@ Rails.application.routes.draw do
     get 'user', to: 'home#user', defaults: { format: :json }
     get 'tasks', to: 'home#tasks', defaults: { format: :json }
     get 'stats', to: 'home#stats', defaults: { format: :json }
+    get 'feed', to: 'home#feed', defaults: { format: :json }
     
     root to: 'home#index', as: :authenticated_root
   end
