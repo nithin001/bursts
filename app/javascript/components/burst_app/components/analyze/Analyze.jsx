@@ -18,7 +18,7 @@ function Analyze() {
 
   const taskCompletedTodayStat = (
     <div class="statistic rounded border-0 w-100">
-      <span class="value">{stats.today.completed_task_count || 0}</span>
+      <span class="value">{stats.today ? stats.today.completed_task_count : 0}</span>
       <span class="label">tasks completed Today</span>
     </div>
   );
