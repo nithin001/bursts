@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadStats } from "../../redux/actions";
 import { getStatsState } from "../../redux/selectors";
-import "./stylesheets/analyze.scss";
+import "../../stylesheets/analyze.scss";
 
 function Analyze() {
   const stats = useSelector(getStatsState);
