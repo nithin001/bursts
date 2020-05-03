@@ -2,7 +2,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createBurst } from "../../redux/actions";
 import { getBurstState } from "../../redux/selectors";
-import "../../stylesheets/welcome.scss";
 
 import Engineer from "images/undraw_new_ideas_jdea";
 

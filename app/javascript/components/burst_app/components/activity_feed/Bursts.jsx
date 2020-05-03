@@ -4,7 +4,6 @@ import moment from "moment";
 import { useSelector } from "react-redux";
 import { getFeedState } from "../../redux/selectors";
 import Task from "./Task";
-import "../../stylesheets/bursts.scss";
 
 function Bursts() {
   const feed = useSelector(getFeedState);

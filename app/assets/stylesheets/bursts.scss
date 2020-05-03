@@ -1,10 +1,25 @@
-// Place all the styles related to the bursts controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+.activity-date {
+    width: 100px;
+    height: 100px;
+    background-color: #ff726b;
+    border-radius: 10px;
+    color:white;
+    position: sticky;
+    top: 20px;
 
-// .burst-card {
-//     height: 200px;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//   }
+    .month, .day {
+        font-size: 10px;
+    line-height: 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    }
+
+    .date {
+        font-size: 40px;
+        line-height: 40px;
+        font-weight: 300;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+    }
+}
