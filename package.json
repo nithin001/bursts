@@ -9,7 +9,6 @@
     "@rails/webpacker": "4.2.2",
     "axios": "^0.19.2",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-    "chart.js": "^2.9.3",
     "d3": "^5.16.0",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
