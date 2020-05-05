@@ -6,6 +6,8 @@ class Burst < ApplicationRecord
   belongs_to :user
   has_many :tasks
 
+  scope :finished, -> { where(status: %i[completed notified]) }
+
   def time_taken
     (completed_at - started_at).round
   end
@@ -15,14 +17,18 @@ class Burst < ApplicationRecord
   end
 
   def humanized_time_taken
-    return unless completed?
+    return unless finished?
 
     ChronicDuration.output(time_taken, units: 1, limit_to_hours: true)
   end
 
   def humanized_from_to
-    return unless completed?
+    return unless finished?
 
     "#{started_at.strftime('%I:%M%p')} - #{completed_at.strftime('%I:%M%p')}"
+  end
+
+  def finished?
+    completed? || notified?
   end
 end

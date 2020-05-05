@@ -12,6 +12,8 @@ export const TOGGLE_EDIT_MODE = "TOGGLE_EDIT_MODE";
 export const EDIT_TASK = "EDIT_TASK";
 export const LOAD_STATS = "LOAD_STATS";
 export const LOAD_ACTIVITY_FEED = "LOAD_ACTIVITY_FEED";
+export const UPDATE_DATES = "UPDATE_DATES";
+export const TOGGLE_SKIPPED = "TOGGLE_SKIPPED";
 
 
 

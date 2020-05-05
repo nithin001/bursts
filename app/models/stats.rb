@@ -55,7 +55,7 @@ class Stats
   end
 
   def bursts
-    @bursts ||= @user.bursts.completed
+    @bursts ||= @user.bursts.finished
   end
 
   def as_json

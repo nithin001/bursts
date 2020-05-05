@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadCurrentBurst, loadCurrentUser, loadBurst } from "./redux/actions";
 import { getApplicationState, getBurstState } from "./redux/selectors";
+import 'react-dates/initialize';
+import 'react-dates/lib/css/_datepicker.css';
 
 import LandingPage from "./components/LandingPage";
 

@@ -46,7 +46,7 @@ function Bursting() {
     ),
     active: (
       <i
-        className={`fa fa fa-stop-circle fa-2x text-task`}
+        className={`fa fa-stop-circle fa-2x text-task`}
         aria-hidden="true"
         tabIndex="0"
         role="button"

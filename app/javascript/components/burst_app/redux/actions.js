@@ -188,9 +188,11 @@ export const undoCompleteTask = (burstId, taskId) => (dispatch) => {
     });
 };
 
-export const loadActivityFeed = () => (dispatch) => {
+export const loadActivityFeed = (dates, page) => (dispatch) => {
+  const startDate = dates.startDate ? `&from_date=${dates.startDate.format("YYYY-MM-DD")}` : '';
+  const endDate = dates.endDate ? `&end_date=${dates.endDate.format("YYYY-MM-DD")}`: '';
   AxiosInstance()
-    .get(`/feed.json?type=latest&count=5`)
+    .get(`/feed.json?page=${page}${startDate}${endDate}`)
     .then((response) => {
       dispatch({
         type: LOAD_ACTIVITY_FEED,

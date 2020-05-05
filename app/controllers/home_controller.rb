@@ -31,7 +31,10 @@ class HomeController < ApplicationController
   end
 
   def feed
-    render json: Feed.new(current_user).as_json
+    from_date = params[:from_date] ? Date.parse(params[:from_date]) : 7.days.ago
+    to_date = params[:to_date] ? Date.parse(params[:to_date]) : Date.today
+    page = params[:page] ? params[:page].to_i : 0
+    render json: Feed.new(current_user, from_date, to_date, page).as_json
   end
 
   # def start

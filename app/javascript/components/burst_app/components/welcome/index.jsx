@@ -14,24 +14,20 @@ function Welcome() {
   }
 
   return (
-    <div className="container rounded shadow welcome-page">
-      <div className="row align-items-center justify-content-center">
-        <div className="col-9 flex-column align-items-center justify-content-center text-center text-white p-5">
-          <h2 className="thin">Welcome back!</h2>
-          <img src={Engineer} width="500" className="mt-5" />
-          <p class="lead mt-5">Are you ready for another burst?</p>
-          <div className="mt-3">
-            <button
-              type="button"
-              onClick={() => {
-                dispatch(createBurst());
-              }}
-              className="btn btn-outline-light btn-lg rounded-pill"
-            >
-              Start now
-            </button>
-          </div>
-        </div>
+    <div className="welcome-page flex-column align-items-center justify-content-center text-center text-white p-5">
+      <h2 className="thin">Welcome back!</h2>
+      <img src={Engineer} width="500" className="mt-5" />
+      <p class="lead mt-5">Are you ready for another burst?</p>
+      <div className="mt-3">
+        <button
+          type="button"
+          onClick={() => {
+            dispatch(createBurst());
+          }}
+          className="btn btn-outline-light btn-lg rounded-pill"
+        >
+          Start now
+        </button>
       </div>
     </div>
   );

@@ -18,11 +18,11 @@ function LandingPage() {
             <Onboarding />
             <Prepare />
             <Do />
+            <BurstNotification />
+            <Welcome />
           </div>
         </div>
         <div className="col-10 clearfix">
-          <BurstNotification />
-          <Welcome />
           <Analyze />
           <ActivityFeed />
         </div>

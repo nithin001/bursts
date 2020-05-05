@@ -12,7 +12,7 @@ function BurstNotification() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (burst.id) {
+    if (burst && burst.status == "completed") {
       dispatch(updateBurstNotified(burst.id));
     }
   }, [burst]);
@@ -22,9 +22,9 @@ function BurstNotification() {
   }
 
   return (
-    <div className="container rounded shadow burst-notification">
+    <div className="burst-notification flex-column align-items-center justify-content-center text-center text-white p-5">
       <div className="row align-items-center justify-content-center">
-        <div className="col-9 flex-column align-items-center justify-content-center text-center text-white p-5">
+        <div className="col-9 ">
           <h2 className="thin">Congratulations on finishing the burst!</h2>
           <img src={Engineer} width="500" className="mt-5" />
           <p class="lead mt-3">You deserve a hard earned break. Go for it!</p>

@@ -47,7 +47,7 @@ function Analyze() {
   );
 
   return (
-    <div className="analyze container">
+    <div className="analyze mb-5">
       <div className="row">
         <div className="col-4 pt-5">{taskCompletedTodayStat}</div>
         <div className="col-4 pt-5">{timeSpentToday}</div>

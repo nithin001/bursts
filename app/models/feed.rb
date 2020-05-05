@@ -1,35 +1,52 @@
 # frozen_string_literal: true
 
 class Feed
-  def initialize(user)
+  PER_PAGE = 5
+
+  def initialize(user, from_date, to_date, page)
     @user = user
+    @from_date = from_date
+    @to_date = to_date
+    @page = page
   end
 
   def as_json
-    bursts.group_by(&:completed_day).map do |completed_at, values|
-      mapped_bursts = values.map do |burst|
-        tasks = burst.tasks.complete
-        next if tasks.empty?
+    { activities: activities,
+      total_activities: day_wise_bursts.count }
+  end
 
+  def activities
+    days_in_result = day_wise_bursts.keys.sort.reverse
+
+    offset_start = @page * (Feed::PER_PAGE + 1) >= days_in_result.length ? days_in_result.length - Feed::PER_PAGE : @page * Feed::PER_PAGE
+    days_in_result[offset_start, Feed::PER_PAGE].map do |date|
+      values = day_wise_bursts[date]
+      mapped_bursts = values.map do |burst|
         {
           burst: burst,
           tasks: burst.tasks,
-          from_to: burst.humanized_from_to,
+          from_to: burst.humanized_from_to
         }
-      end.compact
-
-      next if mapped_bursts.empty?
+      end
 
       total_time_taken = values.map(&:time_taken).sum
       {
-        date: completed_at.strftime('%Y-%m-%d'),
+        date: date.strftime('%Y-%m-%d'),
         bursts: mapped_bursts,
-        humanized_time_taken: ChronicDuration.output(total_time_taken, units: 1, hours: true, limit_to_hours: true),
+        humanized_time_taken: ChronicDuration.output(total_time_taken, units: 1, hours: true, limit_to_hours: true)
       }
-    end.compact
+    end
+  end
+
+  def day_wise_bursts
+    @day_wise_bursts ||= bursts.group_by(&:completed_day)
   end
 
   def bursts
-    @bursts ||= @user.bursts.completed
+    @bursts ||= @user.bursts.finished.where(completed_at: @from_date..@to_date)
+  end
+
+  def paginated_bursts
+    @paginated_bursts ||= bursts.offset(offset_start).limit(PER_PAGE)
   end
 end
