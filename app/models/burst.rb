@@ -6,6 +6,7 @@ class Burst < ApplicationRecord
   belongs_to :user
   has_many :tasks
 
+  validates_presence_of :tasks, if: -> { active? }
   scope :finished, -> { where(status: %i[completed notified]) }
 
   def time_taken
