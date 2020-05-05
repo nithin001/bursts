@@ -33,7 +33,7 @@ class Feed
       {
         date: date.strftime('%Y-%m-%d'),
         bursts: mapped_bursts,
-        humanized_time_taken: ChronicDuration.output(total_time_taken, units: 1, hours: true, limit_to_hours: true)
+        humanized_time_taken: ChronicDuration.output(total_time_taken, units: 2)
       }
     end
   end

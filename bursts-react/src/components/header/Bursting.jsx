@@ -27,7 +27,7 @@ function Bursting() {
   }
 
   const actionButtonMap = {
-    draft: <IconButton className="fa fa-play-circle fa-2x text-task" action={() => { startBurst(application.currentBurstId); }} />,
+    draft: <IconButton className="fa fa-play-circle fa-2x text-task" action={() => { dispatch(startBurst(application.currentBurstId)); }} />,
     active: <IconButton className="fa fa-stop-circle fa-2x text-task" action={() => { dispatch(completeBurst(application.currentBurstId)); }} />,
   };
 

@@ -36,9 +36,7 @@ function ActivityFeed() {
         loadMore={page => loader(page)}
         hasMore={hasMore}
         loader={(
-          <div className="loader" key={0}>
-            Loading ...
-          </div>
+          <div />
         )}
       >
         <Bursts />

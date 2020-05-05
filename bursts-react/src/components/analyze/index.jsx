@@ -13,7 +13,7 @@ function Analyze() {
   }, [dispatch]);
 
   if (!stats.loaded || stats.total === 0) {
-    return <React.Fragment>Loading</React.Fragment>;
+    return <React.Fragment />;
   }
 
   const taskCompletedTodayStat = (

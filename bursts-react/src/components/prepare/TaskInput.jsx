@@ -33,15 +33,17 @@ function TaskInput({
   };
 
   const HintedFormControl = hintContainer(
-    React.forwardRef((forwardedProps) => {
+    React.forwardRef((forwardedProps, innerRef) => {
       const inputProps = { ...forwardedProps };
       delete inputProps.inputRef;
       return (
         <input
           type="text"
           {...inputProps}
+          inputRef={innerRef}
           className="d-inline border-0 ml-1 w-100 bg-transparent text-white white-placeholder"
           placeholder="Describe a tiny and accountable task"
+          autoFocus
         />
       );
     }),
@@ -52,10 +54,6 @@ function TaskInput({
   return (
     <div className="p-3 d-flex flex-column">
       <div className="d-flex align-items-center justify-content-between">
-        {/* <i
-          className="fa fa-square-o fa-lg mt-micro text-muted"
-          aria-hidden="true"
-        ></i> */}
         <AsyncTypeahead
           id="async-example"
           isLoading={isLoading}

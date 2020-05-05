@@ -16,5 +16,6 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'error',
     'import/prefer-default-export': 'off',
+    'jsx-a11y/no-autofocus': 'warn'
   },
 };
