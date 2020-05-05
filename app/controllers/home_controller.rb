@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class HomeController < ApplicationController
-  def index; end
+  def index
+    render html: '', layout: 'react'
+  end
 
   def burst
     burst = current_user.bursts.first
@@ -36,22 +38,4 @@ class HomeController < ApplicationController
     page = params[:page] ? params[:page].to_i : 0
     render json: Feed.new(current_user, from_date, to_date, page).as_json
   end
-
-  # def start
-  #   Burst.start_current_burst(current_user)
-
-  #   render json: { status: 'ok' }
-  # end
-
-  # def complete_task
-  #   Burst.complete_task(params[:id], current_user)
-
-  #   render json: { status: 'ok' }
-  # end
-
-  # def complete
-  #   Burst.complete_current_burst(current_user)
-
-  #   render json: { status: 'ok' }
-  # end
 end
