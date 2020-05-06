@@ -1,4 +1,4 @@
-import { LOAD_ACTIVITY_FEED } from '../actionTypes';
+import { LOAD_ACTIVITY_FEED } from "../actionTypes";
 
 const initialState = {
   loaded: false,
@@ -8,11 +8,15 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case LOAD_ACTIVITY_FEED: {
+      const activities = action.clearOnLoad
+        ? [...action.payload.activities]
+        : [...state.activities, ...action.payload.activities];
+      const total_activities = action.payload.total_activities;
       return {
         ...state,
         loaded: true,
-        activities: [...state.activities, ...action.payload.activities],
-        total_activities: action.payload.total_activities,
+        activities,
+        total_activities,
       };
     }
     default:

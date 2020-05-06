@@ -14,18 +14,18 @@ function ActivityFeed() {
 
   const dispatch = useDispatch();
   const loader = useCallback(
-    (page) => {
-      dispatch(loadActivityFeed(dates, page));
+    (page, clearOnLoad) => {
+      dispatch(loadActivityFeed(dates, page, clearOnLoad));
     },
     [dispatch, dates],
   );
 
   useEffect(() => {
-    loader(0);
+    loader(0, true);
   }, [loader, burst.status]);
 
 
-  if (!feed.loaded || feed.activities.length === 0) {
+  if (!feed.loaded) {
     return <React.Fragment />;
   }
 
@@ -36,7 +36,7 @@ function ActivityFeed() {
       <FeedHeader />
       <InfiniteScroll
         pageStart={0}
-        loadMore={page => loader(page)}
+        loadMore={page => loader(page, false)}
         hasMore={hasMore}
         loader={(
           <div />

@@ -14,6 +14,22 @@ function Bursts() {
     return <React.Fragment>Loading</React.Fragment>;
   }
 
+  if (feed.activities.length === 0) {
+    return (
+      <div className="mt-3">
+        <div className="container p-4 rounded shadow mb-5">
+          <div className="row">
+            <div className="col-12">
+              <div className="d-flex justify-content-center align-items-center">
+                <p className="lead">You did not burst during this period.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="mt-3">
       {feed.activities.map((activity) => {

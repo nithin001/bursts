@@ -185,7 +185,7 @@ export const undoCompleteTask = (burstId, taskId) => (dispatch) => {
     });
 };
 
-export const loadActivityFeed = (dates, page) => (dispatch) => {
+export const loadActivityFeed = (dates, page, clearOnLoad) => (dispatch) => {
   const startDate = dates.startDate ? `&from_date=${dates.startDate.format('YYYY-MM-DD')}` : '';
   const endDate = dates.endDate ? `&end_date=${dates.endDate.format('YYYY-MM-DD')}` : '';
   AxiosInstance()
@@ -194,6 +194,7 @@ export const loadActivityFeed = (dates, page) => (dispatch) => {
       dispatch({
         type: LOAD_ACTIVITY_FEED,
         payload: response.data,
+        clearOnLoad
       });
     });
 };
