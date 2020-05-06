@@ -16,7 +16,7 @@
       <%= stylesheet_link_tag 'main', media: 'all' %>
     <% end %>
   </head>
-  <body id="bootstrap-root" class="bg-light">
+  <body id="bootstrap-root">
     <% if user_signed_in? %>
       <%= render 'logged_in_menu' %>
     <% else %>

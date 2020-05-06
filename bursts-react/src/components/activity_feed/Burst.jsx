@@ -1,47 +1,43 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
-import Task from './Task';
+import React from "react";
+import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
+import Task from "./Task";
 
-import { getApplicationState } from '../../redux/selectors';
+import { getApplicationState } from "../../redux/selectors";
 
 function Burst({ burst }) {
   const application = useSelector(getApplicationState);
 
   const completedTasks = burst.tasks.filter(
-    task => task.status === 'complete',
+    (task) => task.status === "complete"
   );
-  const pendingTasks = burst.tasks.filter(
-    task => task.status !== 'complete',
-  );
+  const pendingTasks = burst.tasks.filter((task) => task.status !== "complete");
 
   const emptyTasksMessage = (
-    <small
-      className="text-muted text-left p-0"
-      style={{ userSelect: 'none' }}
-    >
-      No tasks were completed in this burst
-    </small>
+    <p className="mt-3 pl-1 text-muted no-select">No tasks were completed in this burst.</p>
   );
   const duration = (
-    <small
-      className="text-muted text-right p-0"
-      style={{ userSelect: 'none' }}
-    >
+    <small className="text-muted  p-0" style={{ userSelect: "none" }}>
       {burst.from_to}
     </small>
   );
   return (
-    <div className="bg-white shadow rounded mt-3 p-3">
-      <div className="w-100 d-flex flex-row align-items-between justify-content-between p-0">
-        {completedTasks.length === 0 ? emptyTasksMessage : <small />}
-        {duration}
-      </div>
+    <React.Fragment>
+      {application.splitToBursts && (
+        <React.Fragment>
+          <div className="w-100 text-right">{duration}</div>
+          {completedTasks.length === 0 && emptyTasksMessage}
+        </React.Fragment>
+      )}
       <div className="w-100">
-        {completedTasks.map(task => (<Task task={task} />))}
-        {application.showSkipped && pendingTasks.map(task => <Task task={task} />)}
+        {completedTasks.map((task) => (
+          <Task task={task} />
+        ))}
+        {application.showSkipped &&
+          pendingTasks.map((task) => <Task task={task} />)}
       </div>
-    </div>
+      {application.splitToBursts && <hr />}
+    </React.Fragment>
   );
 }
 
@@ -51,6 +47,5 @@ Burst.propTypes = {
     from_to: PropTypes.string.isRequired,
   }).isRequired,
 };
-
 
 export default Burst;

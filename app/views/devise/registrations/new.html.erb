@@ -24,6 +24,10 @@
       </div>
 
       <div class="form-group">
+        <%= f.collection_select :timezone, ActiveSupport::TimeZone.all, :name, :to_s, { include_blank: 'Time Zone'} , {class: 'form-control' } %>
+      </div>
+      
+      <div class="form-group">
          <%= f.submit "Sign up", class: 'btn btn-block btn-primary' %>
       </div>
       <hr class="w-30">

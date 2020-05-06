@@ -28,6 +28,10 @@
     </div>
     
     <div class="form-group">
+      <%= f.collection_select :timezone, ActiveSupport::TimeZone.all, :name, :to_s, { include_blank: 'Time Zone'} , {class: 'form-control' } %>
+    </div>
+    
+    <div class="form-group">
        <%= f.submit "Update", class: 'btn btn-block btn-primary' %>
        <%= link_to "Back", :back, class: 'btn btn-block btn-secondary' %>
     </div>

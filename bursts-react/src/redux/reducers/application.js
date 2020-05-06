@@ -1,9 +1,10 @@
-import { UPDATE_CURRENT_BURST, UPDATE_CURRENT_USER, TOGGLE_SKIPPED } from '../actionTypes';
+import { UPDATE_CURRENT_BURST, UPDATE_CURRENT_USER, TOGGLE_SKIPPED, TOGGLE_SPLIT_TO_BURSTS } from '../actionTypes';
 
 const initialState = {
   currentBurstLoaded: false,
   currentUserLoaded: false,
   showSkipped: false,
+  splitToBursts: false,
 };
 
 export default function (state = initialState, action) {
@@ -28,6 +29,14 @@ export default function (state = initialState, action) {
       return {
         ...state,
         showSkipped: skipped,
+      };
+    }
+
+    case TOGGLE_SPLIT_TO_BURSTS: {
+      const split = !state.splitToBursts;
+      return {
+        ...state,
+        splitToBursts: split,
       };
     }
     default:

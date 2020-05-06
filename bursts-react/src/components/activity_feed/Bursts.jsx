@@ -1,39 +1,58 @@
-import React from 'react';
-import moment from 'moment';
+import React from "react";
+import moment from "moment";
 
-import { useSelector } from 'react-redux';
-import { getFeedState } from '../../redux/selectors';
-import Burst from './Burst';
+import { useSelector } from "react-redux";
+import { getFeedState } from "../../redux/selectors";
+import { getApplicationState } from "../../redux/selectors";
+import Burst from "./Burst";
 
 function Bursts() {
   const feed = useSelector(getFeedState);
+  const application = useSelector(getApplicationState);
 
   if (!feed.loaded) {
     return <React.Fragment>Loading</React.Fragment>;
   }
 
-  return feed.activities.map((activity) => {
-    const date = moment(activity.date);
-    return (
-      <div className="mt-1 pb-5 border-bottom">
-        <div className="row">
-          <div className="col-2 d-flex align-items-center justify-content-start flex-column pt-3 position-sticky no-select">
-            <div className="activity-date shadow d-flex flex-column align-items-center justify-content-center">
-              <span className="month">{date.format('MMMM')}</span>
-              <span className="date">{date.format('DD')}</span>
-              <span className="day">{date.format('dddd')}</span>
+  return (
+    <div className="mt-3">
+      {feed.activities.map((activity) => {
+        const date = moment(activity.date);
+        const completedTasksCount = activity.bursts
+          .map(
+            (burst) =>
+              burst.tasks.filter((task) => task.status === "complete").length
+          )
+          .reduce((acc, len) => acc + len, 0);
+        return (
+          <div className="container p-4 rounded shadow mb-5">
+            <div className="row">
+              <div className="col-12 ">
+                <div className="d-flex justify-content-between align-items-center">
+                  <div className="d-flex flex-column">
+                    <h4 className="pl-1 mb-0 text-muted">
+                      {date.format("dddd")}, {date.format("DD MMMM")}
+                    </h4>
+                    <small className="mt-0 pl-1 text-muted no-select">
+                      {`Bursted for a total of ${activity.humanized_time_taken}`}
+                    </small>
+                  </div>
+                </div>
+                {completedTasksCount === 0 && !application.splitToBursts && (
+                  <p className="mt-3 pl-1 text-muted no-select">
+                    No tasks were completed on this day.
+                  </p>
+                )}
+                {activity.bursts.map((burst) => (
+                  <Burst burst={burst} />
+                ))}
+              </div>
             </div>
           </div>
-          <div className="col-10">
-            <p className="small mt-3 text-muted no-select">
-              {`Bursted for a total of ${activity.humanized_time_taken}`}
-            </p>
-            {activity.bursts.map(burst => <Burst burst={burst} />)}
-          </div>
-        </div>
-      </div>
-    );
-  });
+        );
+      })}
+    </div>
+  );
 }
 
 export default Bursts;

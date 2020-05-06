@@ -3,10 +3,10 @@
 class Feed
   PER_PAGE = 5
 
-  def initialize(user, from_date, to_date, page)
+  def initialize(user, from_date, end_date, page)
     @user = user
     @from_date = from_date
-    @to_date = to_date
+    @end_date = end_date
     @page = page
   end
 
@@ -16,10 +16,15 @@ class Feed
   end
 
   def activities
-    days_in_result = day_wise_bursts.keys.sort.reverse
+    days_in_result = day_wise_bursts
+                     .keys
+                     .sort
+                     .reverse
+    paginated_days_in_results = Kaminari.paginate_array(days_in_result)
+                                        .page(@page)
+                                        .per(Feed::PER_PAGE)
 
-    offset_start = @page * (Feed::PER_PAGE + 1) >= days_in_result.length ? days_in_result.length - Feed::PER_PAGE : @page * Feed::PER_PAGE
-    days_in_result[offset_start, Feed::PER_PAGE].map do |date|
+    paginated_days_in_results.map do |date|
       values = day_wise_bursts[date]
       mapped_bursts = values.map do |burst|
         {
@@ -43,7 +48,11 @@ class Feed
   end
 
   def bursts
-    @bursts ||= @user.bursts.finished.where(completed_at: @from_date..@to_date)
+    @bursts ||= @user.bursts
+                     .finished
+                     .where('completed_at >= ? AND completed_at <= ?',
+                            @from_date.beginning_of_day,
+                            @end_date.end_of_day)
   end
 
   def paginated_bursts

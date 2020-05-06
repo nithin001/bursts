@@ -6,4 +6,7 @@ class User < ApplicationRecord
 
   has_many :bursts, -> { order(created_at: :desc) }
   has_many :tasks, through: :bursts
+
+  validates_presence_of :name, :timezone
+  validates :timezone, inclusion: { in: ActiveSupport::TimeZone.all.map(&:name), message: '%{value} is not valid' }, allow_blank: true
 end
