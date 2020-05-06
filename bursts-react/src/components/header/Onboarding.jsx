@@ -17,8 +17,7 @@ function Onboarding() {
       <div className="row">
         <div className="col-sm-4 p-3 d-flex flex-align-center">
           <span className="p-1">
-            Welcome
-            {firstName}
+            {`Welcome ${firstName}`}
           </span>
         </div>
         <div className="col-sm-4" />

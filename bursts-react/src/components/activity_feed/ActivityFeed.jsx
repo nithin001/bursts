@@ -4,12 +4,14 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { useDispatch, useSelector } from 'react-redux';
 import Bursts from './Bursts';
 import { loadActivityFeed } from '../../redux/actions';
-import { getFeedState, getDatesState } from '../../redux/selectors';
+import { getFeedState, getDatesState, getBurstState } from '../../redux/selectors';
 import FeedHeader from './FeedHeader';
 
 function ActivityFeed() {
   const feed = useSelector(getFeedState);
   const dates = useSelector(getDatesState);
+  const burst = useSelector(getBurstState);
+
   const dispatch = useDispatch();
   const loader = useCallback(
     (page) => {
@@ -20,7 +22,8 @@ function ActivityFeed() {
 
   useEffect(() => {
     loader(0);
-  }, [loader]);
+  }, [loader, burst.status]);
+
 
   if (!feed.loaded || feed.activities.length === 0) {
     return <React.Fragment />;
