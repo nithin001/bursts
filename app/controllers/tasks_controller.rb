@@ -40,8 +40,8 @@ class TasksController < ApplicationController
 
   # PATCH/PUT /tasks/1
   # PATCH/PUT /tasks/1.json
-  def complete
-    if @task.complete!
+  def skip
+    if @task.skipped!
       render json: @task
     else
       render json: @task.errors, status: :unprocessable_entity
@@ -50,8 +50,8 @@ class TasksController < ApplicationController
 
   # PATCH/PUT /tasks/1
   # PATCH/PUT /tasks/1.json
-  def undo_complete
-    if @task.incomplete!
+  def undo_skip
+    if @task.worked!
       render json: @task
     else
       render json: @task.errors, status: :unprocessable_entity

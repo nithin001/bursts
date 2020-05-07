@@ -159,9 +159,9 @@ export const editTask = (burstId, taskId, taskDescription) => (dispatch) => {
     });
 };
 
-export const completeTask = (burstId, taskId) => (dispatch) => {
+export const skipTask = (burstId, taskId) => (dispatch) => {
   AxiosInstance()
-    .patch(`/bursts/${burstId}/tasks/${taskId}/complete.json`)
+    .patch(`/bursts/${burstId}/tasks/${taskId}/skip.json`)
     .then((response) => {
       if (response.data.id) {
         dispatch({
@@ -172,9 +172,9 @@ export const completeTask = (burstId, taskId) => (dispatch) => {
     });
 };
 
-export const undoCompleteTask = (burstId, taskId) => (dispatch) => {
+export const undoSkipTask = (burstId, taskId) => (dispatch) => {
   AxiosInstance()
-    .patch(`/bursts/${burstId}/tasks/${taskId}/undo_complete.json`)
+    .patch(`/bursts/${burstId}/tasks/${taskId}/undo_skip.json`)
     .then((response) => {
       if (response.data.id) {
         dispatch({

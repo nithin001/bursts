@@ -8,16 +8,16 @@ import { getApplicationState } from "../../redux/selectors";
 function Burst({ burst }) {
   const application = useSelector(getApplicationState);
 
-  const completedTasks = burst.tasks.filter(
-    (task) => task.status === "complete"
+  const workedTasks = burst.tasks.filter(
+    (task) => task.status === "worked"
   );
-  const pendingTasks = burst.tasks.filter((task) => task.status !== "complete");
+  const skippedTasks = burst.tasks.filter((task) => task.status !== "worked");
 
   const emptyTasksMessage = (
-    <p className="mt-3 pl-1 text-muted no-select">No tasks were completed in this burst.</p>
+    <p className="mt-3 pl-1 text-muted no-select">All tasks were skipped in this burst.</p>
   );
   const duration = (
-    <small className="text-muted  p-0" style={{ userSelect: "none" }}>
+    <small className="text-muted p-0" style={{ userSelect: "none" }}>
       {burst.from_to}
     </small>
   );
@@ -26,15 +26,15 @@ function Burst({ burst }) {
       {application.splitToBursts && (
         <React.Fragment>
           <div className="w-100 text-right">{duration}</div>
-          {completedTasks.length === 0 && emptyTasksMessage}
+          {workedTasks.length === 0 && emptyTasksMessage}
         </React.Fragment>
       )}
       <div className="w-100">
-        {completedTasks.map((task) => (
+        {workedTasks.map((task) => (
           <Task task={task} />
         ))}
         {application.showSkipped &&
-          pendingTasks.map((task) => <Task task={task} />)}
+          skippedTasks.map((task) => <Task task={task} />)}
       </div>
       {application.splitToBursts && <hr />}
     </React.Fragment>

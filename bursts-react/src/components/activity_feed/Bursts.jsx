@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { getFeedState } from "../../redux/selectors";
 import { getApplicationState } from "../../redux/selectors";
 import Burst from "./Burst";
+import Task from "./Task";
 
 function Bursts() {
   const feed = useSelector(getFeedState);
@@ -34,12 +35,31 @@ function Bursts() {
     <div className="mt-3">
       {feed.activities.map((activity) => {
         const date = moment(activity.date);
-        const completedTasksCount = activity.bursts
-          .map(
-            (burst) =>
-              burst.tasks.filter((task) => task.status === "complete").length
-          )
-          .reduce((acc, len) => acc + len, 0);
+        const workedTasks = activity.bursts.map((burst) => burst.tasks).flat();
+
+        const processWorkedTasks = workedTasks.reduce((acc, task) => {
+          const taskAlreadyPresent = acc.filter(
+            (presentTask) => presentTask.description === task.description
+          )[0];
+          const tasksWithoutCurrentTask = acc.filter(
+            (presentTask) => presentTask.description !== task.description
+          );
+          if (taskAlreadyPresent) {
+            const statusOfNewTask =
+              taskAlreadyPresent.status === "worked" ? "worked" : task.status;
+            return [
+              ...tasksWithoutCurrentTask,
+              { ...task, status: statusOfNewTask },
+            ];
+          }
+          return [...tasksWithoutCurrentTask, task];
+        }, []);
+
+        const processWorkedTasksWithFilter = application.showSkipped
+          ? processWorkedTasks
+          : processWorkedTasks.filter((task) => task.status === "worked");
+        const workedTasksCount = processWorkedTasksWithFilter.length;
+
         return (
           <div className="container p-4 rounded shadow mb-5">
             <div className="row">
@@ -54,14 +74,15 @@ function Bursts() {
                     </small>
                   </div>
                 </div>
-                {completedTasksCount === 0 && !application.splitToBursts && (
+                {workedTasksCount === 0 && !application.splitToBursts && (
                   <p className="mt-3 pl-1 text-muted no-select">
-                    No tasks were completed on this day.
+                    No tasks were bursted on this day.
                   </p>
                 )}
-                {activity.bursts.map((burst) => (
-                  <Burst burst={burst} />
-                ))}
+                {!application.splitToBursts &&
+                  processWorkedTasksWithFilter.map((task) => <Task task={task} />)}
+                {application.splitToBursts &&
+                  activity.bursts.map((burst) => <Burst burst={burst} />)}
               </div>
             </div>
           </div>

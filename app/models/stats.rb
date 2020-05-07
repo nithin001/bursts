@@ -40,14 +40,17 @@ class Stats
   def statistics(date, grouped_bursts)
     total_spent = grouped_bursts.map(&:time_taken).sum
     count = grouped_bursts.size
-    completed_task_count = ::Task.where(burst_id: grouped_bursts.pluck(:id)).complete.count
+    worked_task_count = ::Task.where(burst_id: grouped_bursts.pluck(:id))
+                              .worked
+                              .select('DISTINCT(description)')
+                              .count
 
     return unless count > 0
 
     {
       date: date.strftime('%Y-%m-%d'),
       count: count,
-      completed_task_count: completed_task_count,
+      worked_task_count: worked_task_count,
       time_spent: total_spent,
       humanized_time_taken: ChronicDuration.output(total_spent, units: 1, hours: true, limit_to_hours: true),
       average: total_spent / count

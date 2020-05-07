@@ -10,8 +10,8 @@ Rails.application.routes.draw do
     end
     resources :tasks do
       member do
-        patch :complete
-        patch :undo_complete
+        patch :skip
+        patch :undo_skip
       end
     end
   end
