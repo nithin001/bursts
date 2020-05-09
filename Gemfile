@@ -21,6 +21,7 @@ gem 'font-awesome-rails'
 gem 'jbuilder', '~> 2.7'
 gem 'chronic_duration', '~> 0.10.6'
 gem 'kaminari'
+gem 'turbolinks', '~> 5'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
