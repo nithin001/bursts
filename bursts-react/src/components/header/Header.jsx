@@ -1,18 +1,7 @@
-import React from 'react';
-import Onboarding from './Onboarding';
-import Bursting from './Bursting';
-import Welcome from './Welcome';
-import Congratulations from './Congratulations';
+import React from "react";
 
 function Header() {
-  return (
-    <React.Fragment>
-      <Onboarding />
-      <Bursting />
-      <Welcome />
-      <Congratulations />
-    </React.Fragment>
-  );
+  return <React.Fragment></React.Fragment>;
 }
 
 export default Header;

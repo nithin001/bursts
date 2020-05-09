@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class Task < ApplicationRecord
-  enum status: %i[worked skipped]
+  enum status: %i[active completed]
   belongs_to :user
-  belongs_to :burst
 
+  default_scope { order('id DESC') }
   def self.for_current_burst(current_user)
     current_draft = Burst.draft.where(user: current_user).first
     tasks_in_current_draft = current_draft.tasks.pluck(:id)

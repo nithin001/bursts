@@ -4,3 +4,6 @@ export const getTasksState = store => store.tasks;
 export const getStatsState = store => store.stats;
 export const getFeedState = store => store.feed;
 export const getDatesState = store => store.dates;
+export const getWorksState = store => store.works;
+export const getBurstsState = store => store.bursts;
+export const getNotificationsState = store => store.notifications;

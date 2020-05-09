@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_06_143055) do
+ActiveRecord::Schema.define(version: 2020_05_08_130125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,9 +27,8 @@ ActiveRecord::Schema.define(version: 2020_05_06_143055) do
   create_table "tasks", force: :cascade do |t|
     t.string "description"
     t.bigint "user_id"
-    t.bigint "burst_id"
     t.integer "status", default: 0
-    t.index ["burst_id"], name: "index_tasks_on_burst_id"
+    t.datetime "created_at"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
@@ -45,6 +44,16 @@ ActiveRecord::Schema.define(version: 2020_05_06_143055) do
     t.string "timezone"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "works", force: :cascade do |t|
+    t.bigint "burst_id"
+    t.bigint "task_id"
+    t.integer "status", default: 0
+    t.bigint "user_id"
+    t.index ["burst_id"], name: "index_works_on_burst_id"
+    t.index ["task_id"], name: "index_works_on_task_id"
+    t.index ["user_id"], name: "index_works_on_user_id"
   end
 
 end

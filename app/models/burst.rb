@@ -1,13 +1,16 @@
 # frozen_string_literal: true
 
 class Burst < ApplicationRecord
-  enum status: %i[draft active completed notified]
+  enum status: %i[draft active completed]
 
   belongs_to :user
-  has_many :tasks
+  has_many :works
+  has_many :tasks, through: :works
 
-  validates_presence_of :tasks, if: -> { active? }
-  scope :finished, -> { where(status: %i[completed notified]) }
+  validates_presence_of :works, if: -> { active? }
+  default_scope { order('created_at DESC') }
+  scope :finished, -> { where(status: %i[completed]) }
+  scope :unfinished, -> { where(status: %i[active draft]) }
 
   def time_taken
     (completed_at - started_at).round
@@ -30,6 +33,12 @@ class Burst < ApplicationRecord
   end
 
   def finished?
-    completed? || notified?
+    completed?
+  end
+
+  def humanized_completed_at
+    return unless finished?
+
+    completed_at.strftime('%Y-%m-%d').to_s
   end
 end

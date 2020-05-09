@@ -29,7 +29,7 @@ function Timer({ burst }) {
   const minutesDisplay = hoursElapsed > 0 ? minutesElapsed % 60 : minutesElapsed;
   const secondsDisplay = minutesDisplay > 0 ? secondsElapsed % 60 : secondsElapsed;
   return (
-    <div className="p-1">
+    <div>
       {hoursElapsed > 0 && (
         <React.Fragment>
           <PaddedDisplay value={hoursElapsed} />

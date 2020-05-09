@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Task({ task }) {
-  const bg = task.status === 'worked' ? 'bg-task' : 'bg-task--editing';
+function Task({ task, status }) {
+  const bg = status === 'worked' ? 'bg-task' : 'bg-task--editing';
   return (
     <div className={`d-flex align-items-center justify-content-between mt-2 mb-2 p-1 ${bg} text-white rounded`}>
       <span

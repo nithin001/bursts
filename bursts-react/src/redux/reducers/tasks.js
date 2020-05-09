@@ -4,7 +4,7 @@ import {
   REMOVE_TASK,
   TOGGLE_EDIT_MODE,
   EDIT_TASK,
-} from '../actionTypes';
+} from "../actionTypes";
 
 const initialState = {
   loaded: false,
@@ -14,11 +14,21 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case LOAD_TASKS: {
-      const tasks = action.payload;
+      const tasks = action.payload.tasks;
+      const count = action.payload.count;
+      if (action.clearOnLoad) {
+        return {
+          ...state,
+          tasks,
+          count,
+          loaded: true,
+        };
+      }
       return {
         ...state,
         loaded: true,
-        tasks: [...tasks],
+        tasks: [...state.tasks, ...tasks],
+        count: count,
       };
     }
 
@@ -28,16 +38,18 @@ export default function (state = initialState, action) {
         ...state,
         loaded: true,
         tasks: [...state.tasks, task],
+        count: state.count + 1,
       };
     }
 
     case REMOVE_TASK: {
       const taskId = action.payload;
-      const tasks = [...state.tasks].filter(task => task.id !== taskId);
+      const tasks = [...state.tasks].filter((task) => task.id !== taskId);
       return {
         ...state,
         loaded: true,
         tasks,
+        count: state.count - 1,
       };
     }
 

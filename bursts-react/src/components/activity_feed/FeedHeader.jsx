@@ -36,7 +36,7 @@ function FeedHeader() {
       />
       <div className="d-flex align-items-end">
         <div className="d-flex flex-column align-items-end">
-          <small>Split to bursts</small>
+          <small>Show sessions</small>
           <IconButton className={`fa ${splitToBurstsClass} fa-2x text-task`} action={toggleSplitToBurst} />
         </div>
         <div className="d-flex flex-column align-items-end ml-5">

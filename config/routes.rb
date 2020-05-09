@@ -2,30 +2,44 @@
 
 Rails.application.routes.draw do
   get 'home/index'
-  resources :bursts do
-    member do
-      patch :start
-      patch :complete
-      patch :notified
-    end
-    resources :tasks do
-      member do
-        patch :skip
-        patch :undo_skip
-      end
-    end
-  end
 
   get 'welcome/index'
   devise_for :users
   authenticated do
-    get 'burst', to: 'home#burst', defaults: { format: :json }
-    get 'user', to: 'home#user', defaults: { format: :json }
-    get 'tasks', to: 'home#tasks', defaults: { format: :json }
-    get 'stats', to: 'home#stats', defaults: { format: :json }
-    get 'feed', to: 'home#feed', defaults: { format: :json }
-    
     root to: 'home#index', as: :authenticated_root
+    get 'tasks', to: 'home#tasks'
+    get 'reports', to: 'home#reports'
+    get 'sessions', to: 'home#sessions'
+
+    namespace :api do
+      resources :bursts do
+        member do
+          patch :start
+          patch :complete
+          patch :notified
+        end
+      end
+
+      resources :works, only: %i[index create destroy] do
+        member do
+          patch :worked
+          patch :undo_worked
+        end
+      end
+
+      resources :tasks do
+        member do
+          patch :complete
+          patch :undo_complete
+        end
+      end
+
+      get 'burst', to: 'home#burst', defaults: { format: :json }
+      get 'user', to: 'home#user', defaults: { format: :json }
+      get 'tasks', to: 'home#tasks', defaults: { format: :json }
+      get 'stats', to: 'home#stats', defaults: { format: :json }
+      get 'feed', to: 'home#feed', defaults: { format: :json }
+    end
   end
 
   root to: 'welcome#index'

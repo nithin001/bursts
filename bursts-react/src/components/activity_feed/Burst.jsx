@@ -8,17 +8,17 @@ import { getApplicationState } from "../../redux/selectors";
 function Burst({ burst }) {
   const application = useSelector(getApplicationState);
 
-  const workedTasks = burst.tasks.filter(
-    (task) => task.status === "worked"
-  );
-  const skippedTasks = burst.tasks.filter((task) => task.status !== "worked");
+  const workedTasks = burst.works.filter((work) => work.status === "worked");
+  const skippedTasks = burst.works.filter((work) => work.status !== "worked");
 
   const emptyTasksMessage = (
-    <p className="mt-3 pl-1 text-muted no-select">All tasks were skipped in this burst.</p>
+    <p className="mt-3 pl-1 text-muted no-select">
+      All tasks were skipped in this session.
+    </p>
   );
   const duration = (
     <small className="text-muted p-0" style={{ userSelect: "none" }}>
-      {burst.from_to}
+      {burst.humanized_from_to}
     </small>
   );
   return (
@@ -30,11 +30,11 @@ function Burst({ burst }) {
         </React.Fragment>
       )}
       <div className="w-100">
-        {workedTasks.map((task) => (
-          <Task task={task} />
+        {workedTasks.map((work) => (
+          <Task task={work.task} status={work.status} />
         ))}
         {application.showSkipped &&
-          skippedTasks.map((task) => <Task task={task} />)}
+          skippedTasks.map((work) => <Task task={work.task} status={work.status} />)}
       </div>
       {application.splitToBursts && <hr />}
     </React.Fragment>

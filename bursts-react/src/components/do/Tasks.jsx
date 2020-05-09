@@ -1,26 +1,41 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { loadTasks } from '../../redux/actions';
-import { getBurstState, getTasksState } from '../../redux/selectors';
-
-import Task from './Task';
+import React, { useEffect, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loadTasks, loadWorks } from "../../redux/actions";
+import {
+  getBurstState,
+  getTasksState,
+  getWorksState,
+} from "../../redux/selectors";
+import _ from "lodash";
+import InfiniteScroll from "react-infinite-scroller";
+import Task from "./Task";
 
 function Tasks() {
   const burst = useSelector(getBurstState);
-  const taskState = useSelector(getTasksState);
+  const worksState = useSelector(getWorksState);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(loadTasks(burst.id));
-  }, [dispatch, burst]);
+    if (burst.id) {
+      dispatch(loadWorks(burst.id));
+    }
+  }, [dispatch, burst.id]);
 
-  if (!taskState.loaded) {
+  if (!worksState.loaded) {
     return <React.Fragment>Loading</React.Fragment>;
   }
 
+  const tasks = worksState.works.map((work) => {
+    return { ...work.task, work: work };
+  });
+
+  const sortedTasks = _.reverse(_.sortBy(tasks, (task) => task.id));
+
   return (
     <div className="mt-3">
-      {taskState.tasks.map(task => <Task task={task} key={task.id} />)}
+      {sortedTasks.map((task) => (
+        <Task task={task} key={task.id} />
+      ))}
     </div>
   );
 }

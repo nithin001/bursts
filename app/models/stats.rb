@@ -40,11 +40,8 @@ class Stats
   def statistics(date, grouped_bursts)
     total_spent = grouped_bursts.map(&:time_taken).sum
     count = grouped_bursts.size
-    worked_task_count = ::Task.where(burst_id: grouped_bursts.pluck(:id))
-                              .worked
-                              .select('DISTINCT(description)')
-                              .count
-
+    worked_task_count = grouped_bursts.map(&:works).flatten.select {|work| work.worked? }.count
+  
     return unless count > 0
 
     {

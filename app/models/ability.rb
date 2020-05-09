@@ -7,7 +7,8 @@ class Ability
     return unless user
 
     can :manage, Burst, user_id: user.id
-    can :manage, Task, burst: { user_id: user.id }
+    can :manage, Task, user_id: user.id
+    can :manage, Work, user_id: user.id
 
       # Define abilities for the passed in user here. For example:
       #

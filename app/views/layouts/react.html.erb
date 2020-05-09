@@ -11,6 +11,7 @@
     <%= stylesheet_link_tag 'welcome', media: 'all' %>
     <%= stylesheet_link_tag 'bursts', media: 'all' %>
     <%= stylesheet_link_tag 'analyze', media: 'all' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <% if !Rails.env.development? %>
       <%= stylesheet_link_tag 'main', media: 'all' %>

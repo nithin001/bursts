@@ -1,13 +1,17 @@
 # frozen_string_literal: true
 
-class TasksController < ApplicationController
-  load_and_authorize_resource :burst
-  load_and_authorize_resource :task, through: :burst
+class Api::TasksController < ApplicationController
+  load_and_authorize_resource :task
 
   # GET /tasks
   # GET /tasks.json
   def index
-    render json: @tasks
+    tasks_with_filter = params[:only_active] && params[:only_active] == 'true' ?  @tasks.active : @tasks
+    tasks = tasks_with_filter.page(params[:page]).per(20)
+    render json: {
+      tasks: tasks,
+      count: tasks.total_count
+    }
   end
 
   # GET /tasks/1
@@ -20,7 +24,7 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
-    @task = @burst.tasks.new(task_params)
+    @task = Task.new(task_params)
     if @task.save
       render json: @task
     else
@@ -38,26 +42,6 @@ class TasksController < ApplicationController
     end
   end
 
-  # PATCH/PUT /tasks/1
-  # PATCH/PUT /tasks/1.json
-  def skip
-    if @task.skipped!
-      render json: @task
-    else
-      render json: @task.errors, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH/PUT /tasks/1
-  # PATCH/PUT /tasks/1.json
-  def undo_skip
-    if @task.worked!
-      render json: @task
-    else
-      render json: @task.errors, status: :unprocessable_entity
-    end
-  end
-
   # DELETE /tasks/1
   # DELETE /tasks/1.json
   def destroy
@@ -65,6 +49,26 @@ class TasksController < ApplicationController
     respond_to do |format|
       format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  # PATCH/PUT /tasks/1
+  # PATCH/PUT /tasks/1.json
+  def complete
+    if @task.completed!
+      render json: @task
+    else
+      render json: @task.errors, status: :unprocessable_entity
+    end
+  end
+
+  # PATCH/PUT /tasks/1
+  # PATCH/PUT /tasks/1.json
+  def undo_complete
+    if @task.active!
+      render json: @task
+    else
+      render json: @task.errors, status: :unprocessable_entity
     end
   end
 

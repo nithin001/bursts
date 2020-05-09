@@ -21,7 +21,7 @@ function ActivityFeed() {
   );
 
   useEffect(() => {
-    loader(0, true);
+    loader(1, true);
   }, [loader, burst.status]);
 
 
@@ -35,7 +35,7 @@ function ActivityFeed() {
     <div>
       <FeedHeader />
       <InfiniteScroll
-        pageStart={0}
+        pageStart={1}
         loadMore={page => loader(page, false)}
         hasMore={hasMore}
         loader={(

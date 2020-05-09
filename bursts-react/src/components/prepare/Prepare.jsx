@@ -5,7 +5,7 @@ import { getBurstState } from '../../redux/selectors';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 import 'react-bootstrap-typeahead/css/Typeahead-bs4.css';
 import Tasks from './Tasks';
-import AddTask from './AddTask';
+import Header from './Header';
 
 function Prepare() {
   const burst = useSelector(getBurstState);
@@ -14,10 +14,12 @@ function Prepare() {
   }
 
   return (
-    <div className="p-3">
-      <AddTask />
-      <Tasks />
-    </div>
+    <React.Fragment>
+      <Header />
+      <div className="p-3">
+        <Tasks />
+      </div>
+    </React.Fragment>
   );
 }
 

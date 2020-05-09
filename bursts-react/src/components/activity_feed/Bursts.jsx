@@ -35,24 +35,31 @@ function Bursts() {
     <div className="mt-3">
       {feed.activities.map((activity) => {
         const date = moment(activity.date);
-        const workedTasks = activity.bursts.map((burst) => burst.tasks).flat();
+        const workedTasks = activity.bursts
+          .map((burst) => burst.burst)
+          .map((burst) => burst.works)
+          .flat()
+          .filter((work) => work !== undefined);
 
-        const processWorkedTasks = workedTasks.reduce((acc, task) => {
-          const taskAlreadyPresent = acc.filter(
-            (presentTask) => presentTask.description === task.description
+        const processWorkedTasks = workedTasks.reduce((acc, work) => {
+          const workAlreadyPresent = acc.filter(
+            (presentWork) => presentWork.task.id === work.task.id
           )[0];
-          const tasksWithoutCurrentTask = acc.filter(
-            (presentTask) => presentTask.description !== task.description
+
+          const worksWithoutCurrentWork = acc.filter(
+            (presentWork) => presentWork.task.id !== work.task.id
           );
-          if (taskAlreadyPresent) {
-            const statusOfNewTask =
-              taskAlreadyPresent.status === "worked" ? "worked" : task.status;
+
+          if (workAlreadyPresent) {
+            const statusOfNewWork =
+              work.status === "worked" ? "worked" : work.status;
+
             return [
-              ...tasksWithoutCurrentTask,
-              { ...task, status: statusOfNewTask },
+              ...worksWithoutCurrentWork,
+              { ...work, status: statusOfNewWork },
             ];
           }
-          return [...tasksWithoutCurrentTask, task];
+          return [...worksWithoutCurrentWork, { ...work, status: work.status }];
         }, []);
 
         const processWorkedTasksWithFilter = application.showSkipped
@@ -80,9 +87,13 @@ function Bursts() {
                   </p>
                 )}
                 {!application.splitToBursts &&
-                  processWorkedTasksWithFilter.map((task) => <Task task={task} />)}
+                  processWorkedTasksWithFilter.map((work) => (
+                    <Task task={work.task} status={work.status} />
+                  ))}
                 {application.splitToBursts &&
-                  activity.bursts.map((burst) => <Burst burst={burst} />)}
+                  activity.bursts
+                    .map((burst) => burst.burst)
+                    .map((burst) => <Burst burst={burst} />)}
               </div>
             </div>
           </div>

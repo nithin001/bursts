@@ -28,8 +28,7 @@ class Feed
       values = day_wise_bursts[date]
       mapped_bursts = values.map do |burst|
         {
-          burst: burst,
-          tasks: burst.tasks,
+          burst: burst.as_json({ methods: %i[humanized_time_taken humanized_from_to humanized_completed_at], include: { works: { include: :task } } }),
           from_to: burst.humanized_from_to
         }
       end

@@ -18,20 +18,21 @@ function Analyze() {
 
   const taskCompletedTodayStat = (
     <div className="statistic rounded border-0 w-100">
+      <span className="label">Worked on</span>
       <span className="value">{stats.today ? stats.today.worked_task_count : 0}</span>
-      <span className="label">tasks bursted Today</span>
+      <span className="label">tasks today</span>
     </div>
   );
 
   const timeSpentToday = (
     <div className="statistic rounded border-0">
+      <span className="label">Worked for</span>
       <span className="value">
         {stats.today ? stats.today.humanized_time_taken.split(' ')[0] : 0}
       </span>
       <span className="label">
         {stats.today && stats.today.humanized_time_taken.split(' ')[1]}
         {' '}
-        BURSTED
         TODAY
       </span>
     </div>
@@ -39,13 +40,13 @@ function Analyze() {
 
   const timeThisWeek = (
     <div className="statistic rounded border-0">
+      <span className="label">Worked for</span>
       <span className="value">
         {stats.week ? stats.week.humanized_time_taken.split(' ')[0] : 0}
       </span>
       <span className="label">
         {stats.week && stats.week.humanized_time_taken.split(' ')[1]}
         {' '}
-        BURSTED
         THIS WEEK
       </span>
     </div>
