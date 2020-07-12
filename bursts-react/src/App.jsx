@@ -7,7 +7,7 @@ import { getApplicationState, getBurstState } from "./redux/selectors";
 import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
 
-import LandingPage from "./components/LandingPage";
+import LandingPage from "./components/sessions/LandingPage";
 import Sessions from "./components/sessions/Sessions";
 import Reports from "./components/Reports";
 import Tasks from "./components/tasks/Tasks";

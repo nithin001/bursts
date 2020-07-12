@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadBursts } from "../../redux/actions";
 import InfiniteScroll from "react-infinite-scroller";
 import Task from "./Task";
+import FullCalendar from '@fullcalendar/react'
+import dayGridPlugin from '@fullcalendar/daygrid'
 
 function Work() {
   const burst = useSelector(getBurstState);
@@ -26,9 +28,6 @@ function Work() {
     return <React.Fragment />;
   }
 
-  if (burst.status === "active" || burst.status === "draft") {
-    return <React.Fragment />;
-  }
   const bursts = burstsState.bursts;
   const hasMore = bursts.length < burstsState.count;
 
@@ -36,7 +35,12 @@ function Work() {
     <div className="container">
       <div className="row justify-content-center mt-5">
         <div className="col-10 clearfix">
-          <InfiniteScroll
+          <FullCalendar
+            plugins={[dayGridPlugin]}
+            initialView="dayGridMonth"
+          />
+
+          {false && <InfiniteScroll
             pageStart={1}
             loadMore={(page) => loader(page)}
             hasMore={hasMore}
@@ -48,21 +52,18 @@ function Work() {
                 <div className="container rounded shadow p-3 text-task mt-3 mb-3">
                   <div className="d-flex justify-content-between align-items-center mb-3">
                     <h4 className="pl-1 mb-0 text-muted">
-                      {date.format("dddd")}, {date.format("DD MMMM")}
+                      {burst.humanized_from_to}
                     </h4>
                     <div>
                       <small>
-                        {burst.humanized_from_to} ({burst.humanized_time_taken})
+                        {date.format("dddd")}, {date.format("DD MMMM")} ({burst.humanized_time_taken})
                       </small>
                     </div>
                   </div>
-                  {burst.works.map((work) => (
-                    <Task task={work.task} work={work} />
-                  ))}
                 </div>
               );
             })}
-          </InfiniteScroll>
+          </InfiniteScroll>}
         </div>
       </div>
     </div>
