@@ -60,11 +60,11 @@ function Analyze() {
         <div className="col-4 pt-5">{timeThisWeek}</div>
       </div>
       {false && (
-      <div className="row align-items-center justify-content-end overflow-hidden ml-2">
-        <div className="col-12">
-          <HeatMapStats graph={stats.graph} />
+        <div className="row align-items-center justify-content-end overflow-hidden ml-2">
+          <div className="col-12">
+            <HeatMapStats graph={stats.graph} />
+          </div>
         </div>
-      </div>
       )}
     </div>
   );

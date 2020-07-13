@@ -1,9 +1,9 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import IconButton from "../common/IconButton";
-import { startBurst } from "../../redux/actions";
-import { getBurstState } from "../../redux/selectors";
+import IconButton from '../common/IconButton';
+import { startBurst } from '../../redux/actions';
+import { getBurstState } from '../../redux/selectors';
 
 function Bursting() {
   const dispatch = useDispatch();

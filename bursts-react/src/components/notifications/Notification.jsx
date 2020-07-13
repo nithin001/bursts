@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { dismissNotification } from "../../redux/actions";
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { dismissNotification } from '../../redux/actions';
 
-import "./notification.scss";
+import './notification.scss';
+
 function Notification({ notification }) {
   const dispatch = useDispatch();
   useEffect(() => {

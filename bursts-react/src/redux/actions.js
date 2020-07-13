@@ -1,43 +1,43 @@
 import {
-  UPDATE_CURRENT_BURST,
-  UPDATE_BURST,
-  UPDATE_CURRENT_USER,
-  LOAD_TASKS,
+  ADD_NOTIFICATION,
   ADD_TO_TASK,
+  ADD_TO_WORKS,
+  DISMISS_NOTIFICATION,
+  EDIT_TASK,
+  EDIT_WORK,
+  LOAD_ACTIVITY_FEED,
+  LOAD_BURSTS,
+  LOAD_STATS,
+  LOAD_TASKS,
+  LOAD_WORKS,
+  REMOVE_FROM_WORKS,
   REMOVE_TASK,
   TOGGLE_EDIT_MODE,
-  EDIT_TASK,
-  LOAD_STATS,
-  LOAD_ACTIVITY_FEED,
-  LOAD_WORKS,
-  ADD_TO_WORKS,
-  REMOVE_FROM_WORKS,
-  EDIT_WORK,
-  LOAD_BURSTS,
-  ADD_NOTIFICATION,
-  DISMISS_NOTIFICATION,
-} from "./actionTypes";
+  UPDATE_BURST,
+  UPDATE_CURRENT_BURST,
+  UPDATE_CURRENT_USER,
+} from './actionTypes';
 
-import { AxiosInstance } from "../util/api";
+import { AxiosInstance } from '../util/api';
 
-export const toggleEditMode = (id) => ({
+export const toggleEditMode = id => ({
   type: TOGGLE_EDIT_MODE,
   payload: id,
 });
 
-export const addNotification = (notification) => ({
+export const addNotification = notification => ({
   type: ADD_NOTIFICATION,
   payload: notification,
 });
 
-export const dismissNotification = (notificationId) => ({
+export const dismissNotification = notificationId => ({
   type: DISMISS_NOTIFICATION,
   payload: notificationId,
 });
 
 export const loadCurrentBurst = () => (dispatch) => {
   AxiosInstance()
-    .get("/api/burst.json")
+    .get('/api/burst.json')
     .then((response) => {
       dispatch({
         type: UPDATE_CURRENT_BURST,
@@ -48,7 +48,7 @@ export const loadCurrentBurst = () => (dispatch) => {
 
 export const loadCurrentUser = () => (dispatch) => {
   AxiosInstance()
-    .get("/api/user.json")
+    .get('/api/user.json')
     .then((response) => {
       dispatch({
         type: UPDATE_CURRENT_USER,
@@ -59,7 +59,7 @@ export const loadCurrentUser = () => (dispatch) => {
 
 export const loadStats = () => (dispatch) => {
   AxiosInstance()
-    .get("/api/stats.json")
+    .get('/api/stats.json')
     .then((response) => {
       dispatch({
         type: LOAD_STATS,
@@ -68,7 +68,7 @@ export const loadStats = () => (dispatch) => {
     });
 };
 
-export const loadBurst = (id) => (dispatch) => {
+export const loadBurst = id => (dispatch) => {
   AxiosInstance()
     .get(`/api/bursts/${id}.json`)
     .then((response) => {
@@ -79,7 +79,7 @@ export const loadBurst = (id) => (dispatch) => {
     });
 };
 
-export const loadBursts = (page) => (dispatch) => {
+export const loadBursts = page => (dispatch) => {
   AxiosInstance()
     .get(`/api/bursts.json?page=${page}`)
     .then((response) => {
@@ -104,7 +104,7 @@ export const loadTasks = (page, clearOnLoad, onlyActive) => (dispatch) => {
 
 export const createBurst = () => (dispatch) => {
   AxiosInstance()
-    .post("/api/bursts.json")
+    .post('/api/bursts.json')
     .then((response) => {
       if (response.data.id) {
         dispatch({
@@ -115,7 +115,7 @@ export const createBurst = () => (dispatch) => {
     });
 };
 
-export const startBurst = (id) => (dispatch) => {
+export const startBurst = id => (dispatch) => {
   AxiosInstance()
     .patch(`/api/bursts/${id}/start.json`)
     .then((response) => {
@@ -128,7 +128,7 @@ export const startBurst = (id) => (dispatch) => {
     });
 };
 
-export const completeBurst = (id) => (dispatch) => {
+export const completeBurst = id => (dispatch) => {
   AxiosInstance()
     .patch(`/api/bursts/${id}/complete.json`)
     .then((response) => {
@@ -140,29 +140,11 @@ export const completeBurst = (id) => (dispatch) => {
       }
     });
 };
-export const updateBurstNotified = (id) => () => {
+export const updateBurstNotified = id => () => {
   AxiosInstance().patch(`/api/bursts/${id}/notified.json`);
 };
 
-export const createTask = (taskDescription, burstId) => (dispatch) => {
-  AxiosInstance()
-    .post(`/api/tasks.json`, {
-      description: taskDescription,
-    })
-    .then((response) => {
-      if (response.data.id) {
-        if (burstId) {
-          dispatch(createWork(burstId, response.data.id));
-        }
-        dispatch({
-          type: ADD_TO_TASK,
-          payload: response.data,
-        });
-      }
-    });
-};
-
-export const deleteTask = (taskId) => (dispatch) => {
+export const deleteTask = taskId => (dispatch) => {
   AxiosInstance()
     .delete(`/api/tasks/${taskId}.json`)
     .then((response) => {
@@ -190,7 +172,7 @@ export const editTask = (taskId, taskDescription) => (dispatch) => {
     });
 };
 
-export const completeTask = (taskId) => (dispatch) => {
+export const completeTask = taskId => (dispatch) => {
   AxiosInstance()
     .patch(`/api/tasks/${taskId}/complete.json`)
     .then((response) => {
@@ -203,7 +185,7 @@ export const completeTask = (taskId) => (dispatch) => {
     });
 };
 
-export const undoCompleteTask = (taskId) => (dispatch) => {
+export const undoCompleteTask = taskId => (dispatch) => {
   AxiosInstance()
     .patch(`/api/tasks/${taskId}/undo_complete.json`)
     .then((response) => {
@@ -216,10 +198,10 @@ export const undoCompleteTask = (taskId) => (dispatch) => {
     });
 };
 
-export const markWorked = (workId, completeTask) => (dispatch) => {
+export const markWorked = (workId, completedTaskId) => (dispatch) => {
   AxiosInstance()
     .patch(`/api/works/${workId}/worked.json`, {
-      complete_task: completeTask,
+      complete_task: completedTaskId,
     })
     .then((response) => {
       if (response.data.id) {
@@ -232,7 +214,7 @@ export const markWorked = (workId, completeTask) => (dispatch) => {
     });
 };
 
-export const undoMarkWorked = (workId) => (dispatch) => {
+export const undoMarkWorked = workId => (dispatch) => {
   AxiosInstance()
     .patch(`/api/works/${workId}/undo_worked.json`)
     .then((response) => {
@@ -248,11 +230,11 @@ export const undoMarkWorked = (workId) => (dispatch) => {
 
 export const loadActivityFeed = (dates, page, clearOnLoad) => (dispatch) => {
   const startDate = dates.startDate
-    ? `&from_date=${dates.startDate.format("YYYY-MM-DD")}`
-    : "";
+    ? `&from_date=${dates.startDate.format('YYYY-MM-DD')}`
+    : '';
   const endDate = dates.endDate
-    ? `&end_date=${dates.endDate.format("YYYY-MM-DD")}`
-    : "";
+    ? `&end_date=${dates.endDate.format('YYYY-MM-DD')}`
+    : '';
   AxiosInstance()
     .get(`/api/feed.json?page=${page}${startDate}${endDate}`)
     .then((response) => {
@@ -264,7 +246,7 @@ export const loadActivityFeed = (dates, page, clearOnLoad) => (dispatch) => {
     });
 };
 
-export const loadWorks = (burstId) => (dispatch) => {
+export const loadWorks = burstId => (dispatch) => {
   AxiosInstance()
     .get(`/api/works.json?burst_id=${burstId}`)
     .then((response) => {
@@ -277,7 +259,7 @@ export const loadWorks = (burstId) => (dispatch) => {
 
 export const createWork = (burstId, taskId) => (dispatch) => {
   AxiosInstance()
-    .post(`/api/works.json`, {
+    .post('/api/works.json', {
       burst_id: burstId,
       task_id: taskId,
     })
@@ -289,7 +271,7 @@ export const createWork = (burstId, taskId) => (dispatch) => {
     });
 };
 
-export const deleteWork = (workId) => (dispatch) => {
+export const deleteWork = workId => (dispatch) => {
   AxiosInstance()
     .delete(`/api/works/${workId}.json`)
     .then((response) => {
@@ -297,6 +279,24 @@ export const deleteWork = (workId) => (dispatch) => {
         dispatch({
           type: REMOVE_FROM_WORKS,
           payload: workId,
+        });
+      }
+    });
+};
+
+export const createTask = (taskDescription, burstId) => (dispatch) => {
+  AxiosInstance()
+    .post('/api/tasks.json', {
+      description: taskDescription,
+    })
+    .then((response) => {
+      if (response.data.id) {
+        if (burstId) {
+          dispatch(createWork(burstId, response.data.id));
+        }
+        dispatch({
+          type: ADD_TO_TASK,
+          payload: response.data,
         });
       }
     });

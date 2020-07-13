@@ -1,11 +1,10 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import PropTypes from "prop-types";
-import { toggleEditMode } from "../../redux/actions";
-import RemoveIcon from "./RemoveIcon";
-import EditTask from "./EditTask";
-import ToggleCompleteIcon from "./ToggleCompleteIcon";
-import Tasks from "./Tasks";
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+import { toggleEditMode } from '../../redux/actions';
+import RemoveIcon from './RemoveIcon';
+import EditTask from './EditTask';
+import ToggleCompleteIcon from './ToggleCompleteIcon';
 
 function Task({ task }) {
   const dispatch = useDispatch();
@@ -17,9 +16,11 @@ function Task({ task }) {
     dispatch(toggleEditMode(task.id));
   };
 
-  if(task.status === 'completed') {
+  if (task.status === 'completed') {
     return (
-      <div className="d-flex align-items-center justify-content-between p-3 mt-3 mb-2 bg-task--editing text-white rounded">
+      <div
+        className="d-flex align-items-center justify-content-between p-3 mt-3 mb-2 bg-task--editing text-white rounded"
+      >
         <span
           className="ml-2 w-75"
         >
@@ -36,7 +37,7 @@ function Task({ task }) {
     <div className="d-flex align-items-center justify-content-between p-3 mt-3 mb-2 bg-task text-white rounded">
       <span
         className="ml-2 w-75"
-        style={{ cursor: "pointer" }}
+        style={{ cursor: 'pointer' }}
         tabIndex="0"
         role="button"
         aria-pressed="false"
@@ -62,7 +63,7 @@ function Task({ task }) {
 Task.propTypes = {
   task: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    status: PropTypes.oneOf(["complete", "incomplete"]).isRequired,
+    status: PropTypes.oneOf(['complete', 'incomplete']).isRequired,
     description: PropTypes.string.isRequired,
     burst_id: PropTypes.number.isRequired,
     editMode: PropTypes.bool.isRequired,

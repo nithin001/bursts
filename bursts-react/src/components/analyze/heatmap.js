@@ -1,8 +1,9 @@
 import * as d3 from 'd3';
 import moment from 'moment';
 import $ from 'jquery';
-window.$ = $
-window.jQuery = $
+
+window.$ = $;
+window.jQuery = $;
 
 const NUMBER_OF_COLORS = 6;
 const CELL_SIZE = 14;
@@ -34,7 +35,7 @@ export default function createHeatMap(chart, months, data, startDate, endDate) {
   const rect = heatmapSvg.append('g').attr('transform', `translate(${dx},0)`);
   rect
     .selectAll('.day')
-    // The heatmap will contain all the days in that year.
+  // The heatmap will contain all the days in that year.
     .data(() => d3.timeDays(startDate, endDate))
     .enter()
     .append('rect')
@@ -48,7 +49,7 @@ export default function createHeatMap(chart, months, data, startDate, endDate) {
     .attr('y', d => d.getDay() * CELL_SIZE)
     .attr('data-toggle', 'tooltip')
     .datum(d3.timeFormat('%Y-%m-%d'))
-    // Add the grid data as a title attribute to render as a tooltip.
+  // Add the grid data as a title attribute to render as a tooltip.
     .attr('title', (d) => {
       const countData = data.dates[d];
       const date = d3.timeFormat('%b %d, %Y')(new Date(d));
@@ -57,13 +58,13 @@ export default function createHeatMap(chart, months, data, startDate, endDate) {
       return `${countData.count} bursts on ${date} taking ${countData.humanized_time_taken}`;
     })
     .attr('date', d => d)
-    // Add bootstrap's tooltip event listener.
+  // Add bootstrap's tooltip event listener.
     .call(() => $('[data-toggle="tooltip"]').tooltip({
       container: 'body',
       placement: 'top',
       position: { my: 'top' },
     }))
-    // Add the colors to the grids.
+  // Add the colors to the grids.
     .filter(d => dates.indexOf(d) > -1)
     .attr('class', d => `${gridClass} ${formatColor(data.dates[d].count)}`);
 }

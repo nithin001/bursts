@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 function Task({ task, work }) {
-  const bg = work.status === "worked" ? "bg-task" : "bg-task--editing";
+  const bg = work.status === 'worked' ? 'bg-task' : 'bg-task--editing';
   return (
     <div
       className={`d-flex align-items-center justify-content-between mt-2 mb-2 p-1 ${bg} text-white rounded`}
@@ -15,7 +15,7 @@ function Task({ task, work }) {
 Task.propTypes = {
   task: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    status: PropTypes.oneOf(["complete", "incomplete"]).isRequired,
+    status: PropTypes.oneOf(['complete', 'incomplete']).isRequired,
     description: PropTypes.string.isRequired,
     burst_id: PropTypes.number.isRequired,
   }).isRequired,

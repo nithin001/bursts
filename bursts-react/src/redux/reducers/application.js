@@ -1,10 +1,10 @@
 import {
-  UPDATE_CURRENT_BURST,
-  UPDATE_CURRENT_USER,
+  TOGGLE_SHOW_COMPLETED,
   TOGGLE_SKIPPED,
   TOGGLE_SPLIT_TO_BURSTS,
-  TOGGLE_SHOW_COMPLETED,
-} from "../actionTypes";
+  UPDATE_CURRENT_BURST,
+  UPDATE_CURRENT_USER,
+} from '../actionTypes';
 
 const initialState = {
   currentBurstLoaded: false,

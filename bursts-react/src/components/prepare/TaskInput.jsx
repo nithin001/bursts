@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { AsyncTypeahead, hintContainer } from 'react-bootstrap-typeahead';
 import { AxiosInstance } from '../../util/api';
@@ -75,21 +75,21 @@ function TaskInput({
           defaultSelected={editMode ? [defaultValue] : []}
         />
         {!editMode && (
+        <AcceptIcon
+          onCommit={onCommit}
+          ref={ref}
+          description={description}
+        />
+        )}
+        {editMode && (
+        <div>
           <AcceptIcon
             onCommit={onCommit}
             ref={ref}
             description={description}
           />
-        )}
-        {editMode && (
-          <div>
-            <AcceptIcon
-              onCommit={onCommit}
-              ref={ref}
-              description={description}
-            />
-            <CancelIcon onCancel={onCancel} ref={ref} />
-          </div>
+          <CancelIcon onCancel={onCancel} ref={ref} />
+        </div>
         )}
       </div>
     </div>

@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DateRangePicker } from 'react-dates';
 import moment from 'moment';
 import './feed_header.scss';
-import { getDatesState, getApplicationState } from '../../redux/selectors';
-import { UPDATE_DATES, TOGGLE_SKIPPED, TOGGLE_SPLIT_TO_BURSTS } from '../../redux/actionTypes';
+import { getApplicationState, getDatesState } from '../../redux/selectors';
+import { TOGGLE_SKIPPED, TOGGLE_SPLIT_TO_BURSTS, UPDATE_DATES } from '../../redux/actionTypes';
 import IconButton from '../common/IconButton';
 
 function FeedHeader() {

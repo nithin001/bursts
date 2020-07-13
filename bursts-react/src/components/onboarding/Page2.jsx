@@ -16,7 +16,13 @@ function Page2({ nextPage }) {
       </div>
       <Dots length={3} active={1} size={10} margin={5} />
       <div className="mt-3">
-        <button type="button" onClick={nextPage} className="btn btn-outline-light btn-lg rounded-pill">Continue</button>
+        <button
+          type="button"
+          onClick={nextPage}
+          className="btn btn-outline-light btn-lg rounded-pill"
+        >
+          Continue
+        </button>
       </div>
     </div>
   );

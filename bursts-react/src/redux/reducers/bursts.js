@@ -1,4 +1,4 @@
-import { LOAD_BURSTS } from "../actionTypes";
+import { LOAD_BURSTS } from '../actionTypes';
 
 const initialState = {
   loaded: false,
@@ -8,8 +8,8 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case LOAD_BURSTS: {
-      const bursts = action.payload.bursts;
-      const count = action.payload.count;
+      const { bursts } = action.payload;
+      const { count } = action.payload;
       if (action.clearOnLoad) {
         return {
           ...state,
@@ -22,7 +22,7 @@ export default function (state = initialState, action) {
         ...state,
         loaded: true,
         bursts: [...state.bursts, ...bursts],
-        count: count,
+        count,
       };
     }
 

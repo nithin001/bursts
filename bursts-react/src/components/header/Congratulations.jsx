@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { createBurst } from '../../redux/actions';
 import { getApplicationState, getBurstState } from '../../redux/selectors';
@@ -28,7 +28,12 @@ function Congratulations() {
         </div>
         <div className="col-sm-4" />
         <div className="col-sm-4 p-3 text-right">
-          <IconButton className="fa fa-plus-circle fa-2x text-task" action={() => { dispatch(createBurst()); }} />
+          <IconButton
+            className="fa fa-plus-circle fa-2x text-task"
+            action={() => {
+              dispatch(createBurst());
+            }}
+          />
         </div>
       </div>
     </div>

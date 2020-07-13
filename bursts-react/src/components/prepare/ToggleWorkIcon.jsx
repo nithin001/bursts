@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 
-import { createWork, deleteWork } from "../../redux/actions";
-import IconButton from "../common/IconButton";
+import { createWork, deleteWork } from '../../redux/actions';
+import IconButton from '../common/IconButton';
 
 function ToggleWorkIcon({ task, burstId }) {
   const dispatch = useDispatch();

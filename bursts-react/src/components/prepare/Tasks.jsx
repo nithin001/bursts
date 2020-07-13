@@ -1,15 +1,11 @@
-import React, { useEffect, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { loadTasks, loadWorks } from "../../redux/actions";
-import {
-  getBurstState,
-  getTasksState,
-  getWorksState,
-} from "../../redux/selectors";
-import InfiniteScroll from "react-infinite-scroller";
-import AddTask from "../tasks/AddTask";
-import Task from "./Task";
-import _ from "lodash";
+import React, { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import InfiniteScroll from 'react-infinite-scroller';
+import _ from 'lodash';
+import { loadTasks, loadWorks } from '../../redux/actions';
+import { getBurstState, getTasksState, getWorksState } from '../../redux/selectors';
+import AddTask from '../tasks/AddTask';
+import Task from './Task';
 
 function Tasks() {
   const taskState = useSelector(getTasksState);
@@ -21,7 +17,7 @@ function Tasks() {
     (page, clearOnLoad) => {
       dispatch(loadTasks(page, clearOnLoad, true));
     },
-    [dispatch]
+    [dispatch],
   );
 
   useEffect(() => {
@@ -45,7 +41,7 @@ function Tasks() {
   }
 
   const tasks = taskState.tasks.map((task) => {
-    const works = worksState.works.filter((work) => work.task_id === task.id);
+    const works = worksState.works.filter(work => work.task_id === task.id);
     if (works.length === 0) {
       return { ...task };
     }
@@ -53,18 +49,18 @@ function Tasks() {
     return { ...task, isWorkedOn: true, workId: works[0].id };
   });
 
-  const sortedTasks = _.reverse(_.sortBy(tasks, (task) => task.id));
+  const sortedTasks = _.reverse(_.sortBy(tasks, task => task.id));
 
   return (
     <div className="mt-3">
       <AddTask burstId={burst.id} />
       <InfiniteScroll
         pageStart={1}
-        loadMore={(page) => loader(page, false)}
+        loadMore={page => loader(page, false)}
         hasMore={hasMore}
         loader={<div />}
       >
-        {sortedTasks.map((task) => (
+        {sortedTasks.map(task => (
           <Task task={task} key={task.id} burstId={burst.id} />
         ))}
       </InfiniteScroll>

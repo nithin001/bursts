@@ -1,10 +1,10 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 
 import { useDispatch, useSelector } from 'react-redux';
 import Bursts from './Bursts';
 import { loadActivityFeed } from '../../redux/actions';
-import { getFeedState, getDatesState, getBurstState } from '../../redux/selectors';
+import { getBurstState, getDatesState, getFeedState } from '../../redux/selectors';
 import FeedHeader from './FeedHeader';
 
 function ActivityFeed() {
@@ -40,7 +40,7 @@ function ActivityFeed() {
         hasMore={hasMore}
         loader={(
           <div />
-        )}
+                )}
       >
         <Bursts />
       </InfiniteScroll>

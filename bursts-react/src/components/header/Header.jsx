@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
 function Header() {
-  return <React.Fragment></React.Fragment>;
+  return <React.Fragment />;
 }
 
 export default Header;

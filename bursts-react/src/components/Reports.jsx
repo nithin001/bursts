@@ -1,6 +1,6 @@
-import React from "react";
-import Analyze from "./analyze";
-import ActivityFeed from "./activity_feed/ActivityFeed";
+import React from 'react';
+import Analyze from './analyze';
+import ActivityFeed from './activity_feed/ActivityFeed';
 
 function Reports() {
   return (

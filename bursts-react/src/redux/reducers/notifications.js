@@ -1,4 +1,4 @@
-import { ADD_NOTIFICATION, DISMISS_NOTIFICATION } from "../actionTypes";
+import { ADD_NOTIFICATION, DISMISS_NOTIFICATION } from '../actionTypes';
 
 const initialState = {
   notifications: [],
@@ -14,7 +14,7 @@ export default function (state = initialState, action) {
 
     case DISMISS_NOTIFICATION: {
       const notifications = [...state.notifications].filter(
-        (notificationObj) => notificationObj.id !== action.payload
+        notificationObj => notificationObj.id !== action.payload,
       );
       return {
         notifications,

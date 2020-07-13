@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { createTask } from "../../redux/actions";
-import TaskInput from "./TaskInput";
+import { createTask } from '../../redux/actions';
+import TaskInput from './TaskInput';
 
 function AddTask({ burstId }) {
   const dispatch = useDispatch();
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState('');
 
   const addTask = () => {
     dispatch(createTask(description, burstId));
-    setDescription("");
+    setDescription('');
   };
 
   return (

@@ -1,12 +1,13 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import PropTypes from "prop-types";
-import ToggleWorkIcon from "./ToggleWorkIcon";
+import React from 'react';
+import PropTypes from 'prop-types';
+import ToggleWorkIcon from './ToggleWorkIcon';
 
 function Task({ task, burstId }) {
   const className = task.isWorkedOn ? 'bg-task' : 'bg-task--editing';
   return (
-    <div className={`d-flex align-items-center justify-content-between p-3 mt-3 mb-2 ${className} text-white rounded`}>
+    <div
+      className={`d-flex align-items-center justify-content-between p-3 mt-3 mb-2 ${className} text-white rounded`}
+    >
       <span className="ml-2 w-75">{task.description}</span>
       <ToggleWorkIcon task={task} burstId={burstId} />
     </div>

@@ -1,9 +1,6 @@
 import {
-  LOAD_WORKS,
-  ADD_TO_WORKS,
-  REMOVE_FROM_WORKS,
-  EDIT_WORK,
-} from "../actionTypes";
+  ADD_TO_WORKS, EDIT_WORK, LOAD_WORKS, REMOVE_FROM_WORKS,
+} from '../actionTypes';
 
 const initialState = {
   loaded: false,
@@ -32,7 +29,7 @@ export default function (state = initialState, action) {
 
     case REMOVE_FROM_WORKS: {
       const workId = action.payload;
-      const works = state.works.filter((work) => work.id !== workId);
+      const works = state.works.filter(work => work.id !== workId);
       return {
         ...state,
         works,
@@ -41,8 +38,8 @@ export default function (state = initialState, action) {
     }
 
     case EDIT_WORK: {
-      const workId = action.workId;
-      const works = state.works.filter((work) => work.id !== workId);
+      const { workId } = action;
+      const works = state.works.filter(work => work.id !== workId);
       return {
         ...state,
         works: [...works, action.payload],

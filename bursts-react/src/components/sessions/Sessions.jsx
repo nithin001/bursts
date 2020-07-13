@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import { getApplicationState, getBurstsState } from "../../redux/selectors";
-import { useDispatch, useSelector } from "react-redux";
-import { createBurst } from "../../redux/actions";
-import BurstingPage from "./BurstingPage";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getApplicationState } from '../../redux/selectors';
+import { createBurst } from '../../redux/actions';
+import BurstingPage from './BurstingPage';
 
 function Work() {
   const application = useSelector(getApplicationState);

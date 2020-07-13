@@ -1,10 +1,6 @@
 import {
-  LOAD_TASKS,
-  ADD_TO_TASK,
-  REMOVE_TASK,
-  TOGGLE_EDIT_MODE,
-  EDIT_TASK,
-} from "../actionTypes";
+  ADD_TO_TASK, EDIT_TASK, LOAD_TASKS, REMOVE_TASK, TOGGLE_EDIT_MODE,
+} from '../actionTypes';
 
 const initialState = {
   loaded: false,
@@ -14,8 +10,8 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case LOAD_TASKS: {
-      const tasks = action.payload.tasks;
-      const count = action.payload.count;
+      const { tasks } = action.payload;
+      const { count } = action.payload;
       if (action.clearOnLoad) {
         return {
           ...state,
@@ -28,7 +24,7 @@ export default function (state = initialState, action) {
         ...state,
         loaded: true,
         tasks: [...state.tasks, ...tasks],
-        count: count,
+        count,
       };
     }
 
@@ -44,7 +40,7 @@ export default function (state = initialState, action) {
 
     case REMOVE_TASK: {
       const taskId = action.payload;
-      const tasks = [...state.tasks].filter((task) => task.id !== taskId);
+      const tasks = [...state.tasks].filter(task => task.id !== taskId);
       return {
         ...state,
         loaded: true,

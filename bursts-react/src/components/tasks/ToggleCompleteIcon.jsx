@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 
-import { completeTask, undoCompleteTask } from "../../redux/actions";
-import IconButton from "../common/IconButton";
+import { completeTask, undoCompleteTask } from '../../redux/actions';
+import IconButton from '../common/IconButton';
 
 function ToggleCompleteIcon({ task }) {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ function ToggleCompleteIcon({ task }) {
     dispatch(undoCompleteTask(task.id));
   };
 
-  if (task.status == "completed") {
+  if (task.status === 'completed') {
     return (
       <IconButton
         className="fa fa-check-square"

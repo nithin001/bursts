@@ -1,14 +1,9 @@
-import React, { useEffect, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { loadTasks, loadWorks } from "../../redux/actions";
-import {
-  getBurstState,
-  getTasksState,
-  getWorksState,
-} from "../../redux/selectors";
-import _ from "lodash";
-import InfiniteScroll from "react-infinite-scroller";
-import Task from "./Task";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import _ from 'lodash';
+import { loadWorks } from '../../redux/actions';
+import { getBurstState, getWorksState } from '../../redux/selectors';
+import Task from './Task';
 
 function Tasks() {
   const burst = useSelector(getBurstState);
@@ -25,15 +20,13 @@ function Tasks() {
     return <React.Fragment>Loading</React.Fragment>;
   }
 
-  const tasks = worksState.works.map((work) => {
-    return { ...work.task, work: work };
-  });
+  const tasks = worksState.works.map(work => ({ ...work.task, work }));
 
-  const sortedTasks = _.reverse(_.sortBy(tasks, (task) => task.id));
+  const sortedTasks = _.reverse(_.sortBy(tasks, task => task.id));
 
   return (
     <div className="mt-3">
-      {sortedTasks.map((task) => (
+      {sortedTasks.map(task => (
         <Task task={task} key={task.id} />
       ))}
     </div>

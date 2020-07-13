@@ -1,12 +1,13 @@
-import React, { useState, useRef } from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
+import AcceptIcon from './AcceptIcon';
+import CancelIcon from './CancelIcon';
 // import { AsyncTypeahead, hintContainer } from 'react-bootstrap-typeahead';
 // import { AxiosInstance } from '../../util/api';
 
-import AcceptIcon from "./AcceptIcon";
-import CancelIcon from "./CancelIcon";
-
-function TaskInput({ onCommit, onChange, editMode, description, onCancel }) {
+function TaskInput({
+  onCommit, onChange, editMode, description, onCancel,
+}) {
   const handleKeyDown = (e) => {
     if (e.keyCode === 13) {
       onCommit();
@@ -29,13 +30,13 @@ function TaskInput({ onCommit, onChange, editMode, description, onCancel }) {
           />
         </div>
         {!editMode && (
-          <AcceptIcon onCommit={onCommit} description={description} />
+        <AcceptIcon onCommit={onCommit} description={description} />
         )}
         {editMode && (
-          <div>
-            <AcceptIcon onCommit={onCommit} description={description} />
-            <CancelIcon onCancel={onCancel} />
-          </div>
+        <div>
+          <AcceptIcon onCommit={onCommit} description={description} />
+          <CancelIcon onCancel={onCancel} />
+        </div>
         )}
       </div>
     </div>

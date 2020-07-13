@@ -1,11 +1,11 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { withRouter } from "react-router-dom";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
-import IconButton from "../common/IconButton";
-import { completeBurst, addNotification } from "../../redux/actions";
-import { getBurstState } from "../../redux/selectors";
-import Timer from "./Timer";
+import IconButton from '../common/IconButton';
+import { addNotification, completeBurst } from '../../redux/actions';
+import { getBurstState } from '../../redux/selectors';
+import Timer from './Timer';
 
 function Header({ history }) {
   const dispatch = useDispatch();
@@ -30,11 +30,11 @@ function Header({ history }) {
               dispatch(completeBurst(burst.id));
               dispatch(
                 addNotification({
-                  message: "Congratulations on finishing the session!",
+                  message: 'Congratulations on finishing the session!',
                   id: `burst-${burst.id}-completed`,
-                })
+                }),
               );
-              history.push("/");
+              history.push('/');
             }}
           />
         </div>

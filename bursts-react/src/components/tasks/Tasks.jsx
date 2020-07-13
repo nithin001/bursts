@@ -1,14 +1,14 @@
-import React, { useEffect, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { loadTasks } from "../../redux/actions";
-import { getTasksState, getApplicationState } from "../../redux/selectors";
-import _ from "lodash";
+import React, { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import _ from 'lodash';
+import InfiniteScroll from 'react-infinite-scroller';
+import { loadTasks } from '../../redux/actions';
+import { getApplicationState, getTasksState } from '../../redux/selectors';
 
-import AddTask from "./AddTask";
-import Task from "./Task";
-import IconButton from "../common/IconButton";
-import { TOGGLE_SHOW_COMPLETED } from "../../redux/actionTypes";
-import InfiniteScroll from "react-infinite-scroller";
+import AddTask from './AddTask';
+import Task from './Task';
+import IconButton from '../common/IconButton';
+import { TOGGLE_SHOW_COMPLETED } from '../../redux/actionTypes';
 
 function Tasks() {
   const taskState = useSelector(getTasksState);
@@ -19,7 +19,7 @@ function Tasks() {
     (page, clearOnLoad) => {
       dispatch(loadTasks(page, clearOnLoad, false));
     },
-    [dispatch]
+    [dispatch],
   );
 
   useEffect(() => {
@@ -37,14 +37,14 @@ function Tasks() {
   const hasMore = taskState.tasks.length < taskState.count;
 
   const showComplete = application.showCompleted
-    ? "fa-toggle-on"
-    : "fa-toggle-off";
+    ? 'fa-toggle-on'
+    : 'fa-toggle-off';
 
   const filteredTasks = application.showCompleted
     ? [...taskState.tasks]
-    : [...taskState.tasks].filter((task) => task.status === "active");
+    : [...taskState.tasks].filter(task => task.status === 'active');
 
-  const tasks = _.reverse(_.sortBy(filteredTasks, (task) => task.id));
+  const tasks = _.reverse(_.sortBy(filteredTasks, task => task.id));
 
   return (
     <React.Fragment>
@@ -52,7 +52,9 @@ function Tasks() {
         <div className="col-10 clearfix">
           <div className="shadow burst-container rounded bg-white mt-5">
             <div className="border-bottom bg-light">
-              <div className="p-3 d-flex flex-row align-items-start justify-content-between border-bottom">
+              <div
+                className="p-3 d-flex flex-row align-items-start justify-content-between border-bottom"
+              >
                 <div className="d-flex flex-column align-items-start">
                   <h3 className="text-task mb-0">Manage tasks</h3>
                   <small className="text-task">add/remove tasks</small>
@@ -70,12 +72,12 @@ function Tasks() {
               <AddTask />
               <InfiniteScroll
                 pageStart={1}
-                loadMore={(page) => loader(page, false)}
+                loadMore={page => loader(page, false)}
                 hasMore={hasMore}
                 loader={<div />}
                 key={application.showCompleted}
               >
-                {tasks.map((task) => (
+                {tasks.map(task => (
                   <Task task={task} key={task.id} />
                 ))}
               </InfiniteScroll>

@@ -1,15 +1,15 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
-import Task from "./Task";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import Task from './Task';
 
-import { getApplicationState } from "../../redux/selectors";
+import { getApplicationState } from '../../redux/selectors';
 
 function Burst({ burst }) {
   const application = useSelector(getApplicationState);
 
-  const workedTasks = burst.works.filter((work) => work.status === "worked");
-  const skippedTasks = burst.works.filter((work) => work.status !== "worked");
+  const workedTasks = burst.works.filter(work => work.status === 'worked');
+  const skippedTasks = burst.works.filter(work => work.status !== 'worked');
 
   const emptyTasksMessage = (
     <p className="mt-3 pl-1 text-muted no-select">
@@ -17,7 +17,7 @@ function Burst({ burst }) {
     </p>
   );
   const duration = (
-    <small className="text-muted p-0" style={{ userSelect: "none" }}>
+    <small className="text-muted p-0" style={{ userSelect: 'none' }}>
       {burst.humanized_from_to}
     </small>
   );
@@ -30,11 +30,11 @@ function Burst({ burst }) {
         </React.Fragment>
       )}
       <div className="w-100">
-        {workedTasks.map((work) => (
+        {workedTasks.map(work => (
           <Task task={work.task} status={work.status} />
         ))}
-        {application.showSkipped &&
-          skippedTasks.map((work) => <Task task={work.task} status={work.status} />)}
+        {application.showSkipped
+                && skippedTasks.map(work => <Task task={work.task} status={work.status} />)}
       </div>
       {application.splitToBursts && <hr />}
     </React.Fragment>
