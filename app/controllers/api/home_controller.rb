@@ -20,7 +20,8 @@ class Api::HomeController < ApplicationController
 
   def user
     render json: {
-      name: current_user.name
+      name: current_user.name,
+      timezone: current_user.timezone
     }
   end
 

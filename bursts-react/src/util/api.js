@@ -1,4 +1,4 @@
-import axios from 'axios';
+import Axios from 'axios';
 
 function getTag(tagName) {
   const tags = [...document.getElementsByTagName('meta')];
@@ -9,7 +9,7 @@ function getTag(tagName) {
   return '';
 }
 
-export const AxiosInstance = () => axios.create({
+export const AxiosInstance = () => Axios.create({
   headers: {
     common: {
       'X-CSRF-Token': getTag('csrf-token'),
