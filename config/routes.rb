@@ -9,7 +9,8 @@ Rails.application.routes.draw do
     root to: 'home#index', as: :authenticated_root
     get 'tasks', to: 'home#tasks'
     get 'reports', to: 'home#reports'
-    get 'sessions', to: 'home#sessions'
+    get 'sessions/*path', to: 'home#sessions'
+    get 'add-post-dated-session', to: 'home#sessions'
 
     namespace :api do
       resources :bursts do
@@ -17,6 +18,11 @@ Rails.application.routes.draw do
           patch :start
           patch :complete
           patch :notified
+        end
+
+        collection do
+          get :active_dates
+          post :create_post_dated_burst
         end
       end
 

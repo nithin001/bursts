@@ -1,38 +1,38 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadBurst, loadCurrentBurst, loadCurrentUser } from './redux/actions';
+import { loadPlayerBurst, loadCurrentBurst, loadCurrentUser } from './redux/actions';
 import { getApplicationState, getBurstState } from './redux/selectors';
 
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 
 import LandingPage from './components/sessions/LandingPage';
-import Sessions from './components/sessions/Sessions';
+import Sessions from './components/sessions/Session';
 import Reports from './components/Reports';
 import Tasks from './components/tasks/Tasks';
 import Notifications from './components/notifications/Notifications';
+import AddPostDatedSession from './components/post_date_session/AddPostDatedSession';
 
 function App() {
   const dispatch = useDispatch();
   const application = useSelector(getApplicationState);
-  const burst = useSelector(getBurstState);
   useEffect(() => {
     dispatch(loadCurrentBurst());
     dispatch(loadCurrentUser());
-  }, [dispatch, burst.status]);
+  }, [dispatch]);
 
   useEffect(() => {
     if (application.currentBurstId) {
-      dispatch(loadBurst(application.currentBurstId));
+      dispatch(loadPlayerBurst(application.currentBurstId));
     }
   }, [dispatch, application.currentBurstId]);
 
-  if (!application.currentBurstLoaded || !application.currentUserLoaded) {
+  if (!application.currentBurstIdLoaded || !application.currentUserLoaded) {
     return <React.Fragment>Loading</React.Fragment>;
   }
 
-  if (application.currentBurstId && !burst.loaded) {
+  if (application.currentBurstId && !application.currentBurstLoaded) {
     return <React.Fragment>Loading</React.Fragment>;
   }
 
@@ -43,7 +43,10 @@ function App() {
         <Route path="/tasks">
           <Tasks />
         </Route>
-        <Route path="/sessions">
+        <Route path="/add-post-dated-session">
+          <AddPostDatedSession />
+        </Route>
+        <Route path="/sessions/:sessionId">
           <Sessions />
         </Route>
         <Route path="/reports">

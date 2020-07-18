@@ -4,14 +4,19 @@ import {
   TOGGLE_SPLIT_TO_BURSTS,
   UPDATE_CURRENT_BURST,
   UPDATE_CURRENT_USER,
+  LOAD_ACTIVE_DATES, UPDATE_BURST, UPDATE_PLAYER_BURST,
 } from '../actionTypes';
 
 const initialState = {
-  currentBurstLoaded: false,
+  currentBurstIdLoaded: false,
   currentUserLoaded: false,
   showSkipped: false,
   splitToBursts: false,
   showCompleted: false,
+  activeDatesLoaded: false,
+  activeDates: [],
+  currentBurstLoaded: false,
+  burst: {},
 };
 
 export default function (state = initialState, action) {
@@ -21,7 +26,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         currentBurstId: id,
-        currentBurstLoaded: true,
+        currentBurstIdLoaded: true,
       };
     }
     case UPDATE_CURRENT_USER: {
@@ -52,6 +57,22 @@ export default function (state = initialState, action) {
       return {
         ...state,
         showCompleted,
+      };
+    }
+
+    case LOAD_ACTIVE_DATES: {
+      return {
+        ...state,
+        activeDatesLoaded: true,
+        activeDates: [...action.payload],
+      };
+    }
+
+    case UPDATE_PLAYER_BURST: {
+      return {
+        ...state,
+        currentBurstLoaded: true,
+        burst: { ...action.payload },
       };
     }
 

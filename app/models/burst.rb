@@ -12,12 +12,15 @@ class Burst < ApplicationRecord
   scope :finished, -> { where(status: %i[completed]) }
   scope :unfinished, -> { where(status: %i[active draft]) }
 
+  scope :on_date, ->(date) { between(date.in_time_zone.beginning_of_day, date.in_time_zone.end_of_day) }
+  scope :between, ->(from_time, to_time) { where('completed_at BETWEEN ? AND ?', from_time, to_time) }
+
   def time_taken
     (completed_at - started_at).round
   end
 
   def completed_day
-    completed_at.to_date
+    completed_at.try(&:to_date)
   end
 
   def humanized_time_taken

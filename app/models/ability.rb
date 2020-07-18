@@ -8,7 +8,7 @@ class Ability
 
     can :manage, Burst, user_id: user.id
     can :manage, Task, user_id: user.id
-    can :manage, Work, user_id: user.id
+    can :manage, Work, task: { user_id: user.id }, burst: { user_id: user.id }
 
       # Define abilities for the passed in user here. For example:
       #

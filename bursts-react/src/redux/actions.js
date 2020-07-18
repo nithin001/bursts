@@ -4,7 +4,7 @@ import {
   ADD_TO_WORKS,
   DISMISS_NOTIFICATION,
   EDIT_TASK,
-  EDIT_WORK,
+  EDIT_WORK, LOAD_ACTIVE_DATES,
   LOAD_ACTIVITY_FEED,
   LOAD_BURSTS,
   LOAD_STATS,
@@ -15,7 +15,7 @@ import {
   TOGGLE_EDIT_MODE,
   UPDATE_BURST,
   UPDATE_CURRENT_BURST,
-  UPDATE_CURRENT_USER,
+  UPDATE_CURRENT_USER, UPDATE_PLAYER_BURST,
 } from './actionTypes';
 
 import { AxiosInstance } from '../util/api';
@@ -68,6 +68,17 @@ export const loadStats = () => (dispatch) => {
     });
 };
 
+export const loadPlayerBurst = id => (dispatch) => {
+  AxiosInstance()
+    .get(`/api/bursts/${id}.json`)
+    .then((response) => {
+      dispatch({
+        type: UPDATE_PLAYER_BURST,
+        payload: response.data,
+      });
+    });
+};
+
 export const loadBurst = id => (dispatch) => {
   AxiosInstance()
     .get(`/api/bursts/${id}.json`)
@@ -79,13 +90,14 @@ export const loadBurst = id => (dispatch) => {
     });
 };
 
-export const loadBursts = page => (dispatch) => {
+export const loadBursts = date => (dispatch) => {
   AxiosInstance()
-    .get(`/api/bursts.json?page=${page}`)
+    .get(`/api/bursts.json?date=${date}`)
     .then((response) => {
       dispatch({
         type: LOAD_BURSTS,
         payload: response.data,
+        clearOnLoad: true,
       });
     });
 };
@@ -284,15 +296,18 @@ export const deleteWork = workId => (dispatch) => {
     });
 };
 
-export const createTask = (taskDescription, burstId) => (dispatch) => {
+export const createTask = (taskDescription, burstId, onCreate) => (dispatch) => {
   AxiosInstance()
     .post('/api/tasks.json', {
       description: taskDescription,
     })
     .then((response) => {
       if (response.data.id) {
+        console.log(burstId);
         if (burstId) {
           dispatch(createWork(burstId, response.data.id));
+        } else if (onCreate) {
+          onCreate(response.data.id);
         }
         dispatch({
           type: ADD_TO_TASK,
@@ -300,4 +315,28 @@ export const createTask = (taskDescription, burstId) => (dispatch) => {
         });
       }
     });
+};
+
+export const loadActiveDates = () => (dispatch) => {
+  AxiosInstance()
+    .get('/api/bursts/active_dates')
+    .then((response) => {
+      dispatch({
+        type: LOAD_ACTIVE_DATES,
+        payload: response.data,
+      });
+    });
+};
+
+export const createPostDatedSession = (taskIds, started_at, completed_at, date) => AxiosInstance()
+  .post('/api/bursts/create_post_dated_burst.json', {
+    task_ids: taskIds,
+    started_at,
+    completed_at,
+    date,
+  });
+
+export const deleteBurst = (burstId) => {
+  AxiosInstance()
+    .delete(`/api/bursts/${burstId}.json`);
 };

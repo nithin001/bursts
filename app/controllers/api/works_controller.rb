@@ -56,6 +56,6 @@ class Api::WorksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def work_params
-    params.fetch(:work).permit(%i[burst_id task_id]).merge(user: current_user)
+    params.fetch(:work).permit(%i[burst_id task_id])
   end
 end
