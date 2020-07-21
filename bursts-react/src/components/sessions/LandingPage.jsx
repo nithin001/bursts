@@ -52,9 +52,6 @@ function LandingPage() {
               <div className="col-5">
                 <Calendar onChangeDay={onChangeDay} chosenDate={chosenDate} />
               </div>
-              <div className="col-7">
-                <SessionsOnDay chosenDate={chosenDate} />
-              </div>
             </div>
           </div>
         </div>

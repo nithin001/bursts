@@ -26,7 +26,7 @@ function SessionsOnDay({ chosenDate }) {
 
 
   return (
-    <div className="container border rounded p-3">
+    <div className="container rounded py-2 border-top">
       <h5>
         Sessions on
         {chosenDate.format(' MMMM Do, YYYY')}

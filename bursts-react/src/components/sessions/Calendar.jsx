@@ -4,6 +4,9 @@ import { DayPicker } from 'react-dates';
 import { loadActiveDates } from '../../redux/actions';
 import { getApplicationState } from '../../redux/selectors';
 import CircleIcon from '../common/CircleIcon';
+import SessionsOnDay from './SessionsOnDay';
+import './calendar.scss';
+import moment from 'moment';
 
 function Calendar({ onChangeDay, chosenDate }) {
   const applicationState = useSelector(getApplicationState);
@@ -15,16 +18,30 @@ function Calendar({ onChangeDay, chosenDate }) {
       .filter(dateObj => day.isSame(dateObj, 'day'))
       .length > 0;
     const isToday = day.isSame(chosenDate, 'day');
+    const isFuture = day.isAfter(moment(), 'day');
+    if (isFuture) {
+      return (
+        <div
+          className="position-relative h-100 pt-2"
+          style={{ backgroundColor: 'white', cursor: 'default' }}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          }}
+        >
+          {day.format('D')}
+        </div>
+      );
+    }
+    const backgroundColor = isToday ? '#f3f3f3' : 'white';
     return (
-      <div className="position-relative">
+      <div
+        className="position-relative h-100 pt-2"
+        style={{ backgroundColor }}
+      >
         {day.format('D')}
-        {isToday && (
-          <div className="position-absolute" style={{ bottom: 10, right: 5, color: 'green' }}>
-            <CircleIcon />
-          </div>
-        )}
         {hasEvent && (
-        <div className="position-absolute" style={{ bottom: -14, right: -8, color: 'red' }}>
+        <div className="position-absolute" style={{ bottom: -8, right: -8, color: 'orangered' }}>
           <CircleIcon />
         </div>
         )}
@@ -45,13 +62,14 @@ function Calendar({ onChangeDay, chosenDate }) {
 
   return (
     <DayPicker
-      numberOfMonths={1}
+      numberOfMonths={3}
       onDayMouseEnter={() => {}}
       onDayMouseLeave={() => {}}
       onDayClick={onChangeDay}
       renderDayContents={renderDay}
-      initialVisibleMonth={() => chosenDate}
-      enableOutsideDays
+      initialVisibleMonth={() => chosenDate.subtract(2, 'months')}
+      renderCalendarInfo={() => (<SessionsOnDay chosenDate={chosenDate} />)
+      }
     />
   );
 }
